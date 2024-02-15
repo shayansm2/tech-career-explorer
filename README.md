@@ -6,10 +6,19 @@ tools to use:
 - mage-ai as pipeline orchestrator
 - DLT, DBT for ELT
 - metabase for dashboard
-<!-- - spark -->
+<!-- - spark
+- hamravesh or Arvan as cloud provider
+- teraform  -->
 
 
 todos:
 - [ ] build postgressql docker
 - [ ] build mage-ai docker
 - [ ] build metabase docker
+- [ ] make build
+
+
+how to build:
+1. docker clone
+2. chmod +x build.sh
+3. ./build.sh
