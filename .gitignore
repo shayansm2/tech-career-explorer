@@ -1,2 +1,6 @@
 #env file
 **/.env
+
+# mage files
+mage_data/**
+**/.cache
