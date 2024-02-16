@@ -1,4 +1,2 @@
 FROM mageai/mageai:latest
-ARG PROJECT_NAME
-ENV PROJECT_NAME=${PROJECT_NAME}
-ENTRYPOINT mage start ${PROJECT_NAME}
+ENTRYPOINT mage start orchestratrator
