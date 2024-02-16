@@ -12,10 +12,14 @@ tools to use:
 
 
 todos:
-- [ ] build postgressql docker
-- [ ] build mage-ai docker
+- [x] build postgressql docker
+- [x] build mage-ai docker
 - [ ] build metabase docker
-- [ ] make build
+- [x] make build
+- [ ] ICrawler - Exporter
+- [ ] https://relocate.me/ crawler
+- [ ] https://www.glassdoor.com/ crawler
+- [ ] https://siaexplains.github.io/visa-sponsorship-companies/ crawler
 
 
 how to build:

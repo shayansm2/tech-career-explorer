@@ -4,8 +4,6 @@ services:
     build:
       context: .
       dockerfile: mageai.Dockerfile
-      args:
-          PROJECT_NAME: ${PROJECT_NAME}
     container_name: ${PROJECT_NAME}-mageai
     environment:
       USER_CODE_PATH: /home/src/${PROJECT_NAME}
