@@ -20,6 +20,7 @@ todos:
 - [ ] https://relocate.me/ crawler
 - [ ] https://www.glassdoor.com/ crawler
 - [ ] https://siaexplains.github.io/visa-sponsorship-companies/ crawler
+- [ ] https://www.linkedin.com/jobs/ crawler
 
 
 how to build:

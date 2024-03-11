@@ -4,7 +4,7 @@ services:
     build:
       context: .
       dockerfile: mageai.Dockerfile
-    container_name: ${PROJECT_NAME}-mageai
+    container_name: ${PROJECT_NAME}_mageai
     environment:
       USER_CODE_PATH: /home/src/${PROJECT_NAME}
       POSTGRES_DBNAME: ${POSTGRES_DBNAME}
@@ -14,17 +14,30 @@ services:
       POSTGRES_HOST: ${POSTGRES_HOST}
       POSTGRES_PORT: ${POSTGRES_PORT}
     ports:
-      - 6789:6789
+      - 6789:6789 # mage-ai dashboard
+      - 8080:8080 # dbt docs
     volumes:
       - .:/home/src/
     restart: on-failure:5
   postgres:
     image: postgres:14
     restart: on-failure
-    container_name: ${PROJECT_NAME}-postgres
+    container_name: ${PROJECT_NAME}_postgres
     environment:
       POSTGRES_DB: ${POSTGRES_DBNAME}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
-      - "${POSTGRES_PORT}:5432"
+      - "${POSTGRES_PORT}:5432" # postgres db
+  metabase:
+    image: metabase/metabase:latest
+    container_name: ${PROJECT_NAME}_metabase
+    environment:
+      MB_DB_TYPE: postgres
+      MB_DB_DBNAME: ${POSTGRES_DBNAME}
+      MB_DB_PORT: ${POSTGRES_PORT}
+      MB_DB_USER: ${POSTGRES_USER}
+      MB_DB_PASS: ${POSTGRES_PASSWORD}
+      MB_DB_HOST: ${POSTGRES_HOST}
+    ports:
+      - "3000:3000" # metabase dashboard
