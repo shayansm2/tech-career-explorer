@@ -4,9 +4,9 @@ services:
     build:
       context: .
       dockerfile: mageai.Dockerfile
-    container_name: ${PROJECT_NAME}_mageai
+    container_name: mageai
     environment:
-      USER_CODE_PATH: /home/src/${PROJECT_NAME}
+      USER_CODE_PATH: /home/src/orchestratrator
       POSTGRES_DBNAME: ${POSTGRES_DBNAME}
       POSTGRES_SCHEMA: ${POSTGRES_SCHEMA}
       POSTGRES_USER: ${POSTGRES_USER}
@@ -22,7 +22,7 @@ services:
   postgres:
     image: postgres:14
     restart: on-failure
-    container_name: ${PROJECT_NAME}_postgres
+    container_name: postgres
     environment:
       POSTGRES_DB: ${POSTGRES_DBNAME}
       POSTGRES_USER: ${POSTGRES_USER}
@@ -31,7 +31,7 @@ services:
       - "${POSTGRES_PORT}:5432" # postgres db
   metabase:
     image: metabase/metabase:latest
-    container_name: ${PROJECT_NAME}_metabase
+    container_name: metabase
     environment:
       MB_DB_TYPE: postgres
       MB_DB_DBNAME: ${POSTGRES_DBNAME}
