@@ -17,10 +17,13 @@ todos:
 - [ ] build metabase docker
 - [x] make build
 - [ ] ICrawler - Exporter
-- [ ] https://relocate.me/ crawler
+- [x] https://relocate.me/ crawler
 - [ ] https://www.glassdoor.com/ crawler
 - [ ] https://siaexplains.github.io/visa-sponsorship-companies/ crawler
 - [ ] https://www.linkedin.com/jobs/ crawler
+- [ ] relocate filters
+- [ ] preference, configs and filters panel ? 
+- [x] simple pipeline
 
 
 how to build:

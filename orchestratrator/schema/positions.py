@@ -1,0 +1,8 @@
+column_detail_page_uri = 'detail_page_uri'
+column_job_title = 'job_title'
+column_city = 'city'
+column_country = 'country'
+column_relocation_package = 'relocation_package'
+column_company_name = 'company_name'
+column_remote_option = 'remote_option'
+column_tags = 'tags'
