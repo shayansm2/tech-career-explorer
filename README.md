@@ -12,7 +12,7 @@ tools to use:
 
 
 todos:
-- [ ] build
+- [x] build
     - [x] build postgressql docker
     - [x] build mage-ai docker
     - [x] build metabase docker
@@ -26,13 +26,13 @@ todos:
     - [x] https://www.linkedin.com/jobs/ crawler
 - [ ] Detailed Page
     - [ ] Detailes of relocate and extract data from it
-    - [ ] Detailes of linkedin
+    - [ ] **Detailes of linkedin**
 - [ ] crawler settings
     - [ ] preference, configs and filters panel ?
     - [ ] relocate filters
-- [ ] hash_id and update, replace
+- [x] hash_id and update, replace
 - [ ] UI
-    - [ ] store dashboards
+    - [ ] **store dashboards**
     - [ ] panel for sertting values for positions (not_interested, interested, applied)
 - [ ] dbt
     - [ ] join and one meta table
