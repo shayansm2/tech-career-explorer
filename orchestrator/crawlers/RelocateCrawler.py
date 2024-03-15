@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
-import orchestratrator.schema.positions as schema
+import orchestrator.schema.positions as schema
 
 def scrape_data_from_url(url) -> pd.DataFrame:
     response = requests.get(url)
@@ -13,7 +13,7 @@ def scrape_data_from_url(url) -> pd.DataFrame:
     for job in jobs:
         row = {}
         job_info = job.find('a')
-        row[schema.column_detail_page_uri] = job.find('a')['href']
+        row[schema.column_detail_page_url] = 'https://relocate.me/' + job.find('a')['href']
         job_info = job_info.text.split("\n")
         row[schema.column_job_title] = job_info[0].strip()
         
@@ -40,7 +40,3 @@ def scrape_data_from_url(url) -> pd.DataFrame:
     
     df = pd.DataFrame(data)
     return df
-
-
-# Call the function with your URL
-scrape_data_from_url('https://relocate.me/search?page=3')

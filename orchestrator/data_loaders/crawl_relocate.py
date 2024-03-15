@@ -7,8 +7,8 @@ if 'test' not in globals():
     from mage_ai.data_preparation.decorators import test
 
 
-from orchestratrator.crawlers.RelocateCrawler import scrape_data_from_url
-from orchestratrator.utils.hash import create_hash_id
+from orchestrator.crawlers.RelocateCrawler import scrape_data_from_url
+from orchestrator.utils.hash import create_hash_id
 
 @data_loader
 def load_data_from_api(*args, **kwargs):
@@ -39,7 +39,7 @@ def test_output(output, *args) -> None:
     Template code for testing the output of the block.
     """
     assert output is not None, 'The output is undefined'
-    assert len(output[output['detail_page_uri'].isnull()]) == 0
+    assert len(output[output['detail_page_url'].isnull()]) == 0
     assert len(output[output['job_title'].isnull()]) == 0
     assert len(output[output['company_name'].isnull()]) == 0
     assert len(output[output['hash_id'].isnull()]) == 0

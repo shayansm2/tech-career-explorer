@@ -1,5 +1,5 @@
 FROM mageai/mageai:latest
-RUN mage init orchestratrator
+RUN mage init orchestrator
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
-ENTRYPOINT mage start orchestratrator
+ENTRYPOINT mage start orchestrator

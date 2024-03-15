@@ -12,10 +12,11 @@ tools to use:
 
 
 todos:
-- [x] build postgressql docker
-- [x] build mage-ai docker
-- [x] build metabase docker
-- [x] make build
+- [ ] build
+    - [x] build postgressql docker
+    - [x] build mage-ai docker
+    - [x] build metabase docker
+    - [x] build.sh
 - [x] simple pipeline
 - [ ] multi crawler
     - [ ] ICrawler - Exporter
@@ -37,9 +38,11 @@ todos:
     - [ ] tables doc
     - [ ] tests
 - [ ] kafka
-    - [ ] event based for linkdin
+    - [ ] event based for linkdin job alerts
 - [ ] spark
     - [ ] batch processing of PDPs
+- [ ] cloud deployment
+- [ ] github page
 
 how to build:
 1. docker clone

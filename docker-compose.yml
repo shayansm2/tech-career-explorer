@@ -6,7 +6,7 @@ services:
       dockerfile: mageai.Dockerfile
     container_name: mageai
     environment:
-      USER_CODE_PATH: /home/src/orchestratrator
+      USER_CODE_PATH: /home/src/orchestrator
       POSTGRES_DBNAME: ${POSTGRES_DBNAME}
       POSTGRES_SCHEMA: ${POSTGRES_SCHEMA}
       POSTGRES_USER: ${POSTGRES_USER}
@@ -41,3 +41,8 @@ services:
       MB_DB_HOST: ${POSTGRES_HOST}
     ports:
       - "3000:3000" # metabase dashboard
+    volumes:
+      - metabase-data:/metabase.db
+
+volumes:
+  metabase-data:
