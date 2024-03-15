@@ -29,7 +29,6 @@ def load_data_from_api(*args, **kwargs):
 
     result = pd.concat(dfs)
     result['hash_id'] = result.apply(lambda x: create_hash_id(x), axis=1)
-    result['data_source'] = 'relocate.me'
     return result
 
 

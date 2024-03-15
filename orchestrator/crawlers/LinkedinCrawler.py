@@ -30,10 +30,11 @@ def scrape_data_from_url(url: str):
             created_at = date['datetime']
         row[schema.column_created_at] = created_at
 
-        salary = job.find('span', {'class': 'job-search-card__salary-info'})
-        if salary is not None:
-            salary = salary.text
-        row[schema.column_salary_range] = salary
+        # todo fix this
+        # salary = job.find('span', {'class': 'job-search-card__salary-info'})
+        # if salary is not None:
+        #     salary = salary.text
+        # row[schema.column_salary_range] = salary
 
         data.append(row)
     df = pd.DataFrame(data)

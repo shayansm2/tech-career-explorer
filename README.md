@@ -23,9 +23,10 @@ todos:
     - [x] https://relocate.me/ crawler
     - [ ] https://www.glassdoor.com/ crawler
     - [ ] https://siaexplains.github.io/visa-sponsorship-companies/ crawler
-    - [ ] https://www.linkedin.com/jobs/ crawler
+    - [x] https://www.linkedin.com/jobs/ crawler
 - [ ] Detailed Page
     - [ ] Detailes of relocate and extract data from it
+    - [ ] Detailes of linkedin
 - [ ] crawler settings
     - [ ] preference, configs and filters panel ?
     - [ ] relocate filters
@@ -37,6 +38,7 @@ todos:
     - [ ] join and one meta table
     - [ ] tables doc
     - [ ] tests
+    ![alt text](statics/dbt_schema.png)
 - [ ] kafka
     - [ ] event based for linkdin job alerts
 - [ ] spark
