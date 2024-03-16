@@ -11,7 +11,7 @@ tools to use:
 - teraform  -->
 
 
-todos:
+## todos:
 - [x] build
     - [x] build postgressql docker
     - [x] build mage-ai docker
@@ -31,6 +31,7 @@ todos:
     - [ ] preference, configs and filters panel ?
     - [ ] relocate filters
 - [x] hash_id and update, replace
+- [ ] db id for update not insert
 - [ ] UI
     - [ ] **store dashboards**
     - [ ] panel for sertting values for positions (not_interested, interested, applied)
@@ -45,6 +46,7 @@ todos:
     - [ ] batch processing of PDPs
 - [ ] cloud deployment
 - [ ] github page
+- [ ] explain the project in readme
 
 how to build:
 1. docker clone

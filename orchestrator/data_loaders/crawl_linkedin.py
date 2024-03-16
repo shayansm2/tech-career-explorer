@@ -22,20 +22,23 @@ def load_data_from_api(*args, **kwargs):
         .set_keywords('Software Engineer')
 
     offset = 0
+    counter = 0
     dfs = []
     while True:
-        offset += 1
-        if offset % 10 == 0:
+        if counter % 10 == 0:
             time.sleep(5)
-        print(f'get page {offset}.')
+        print(f'get offset {offset}.')
         df = scrape_data_from_url(url_generator.set_offset(offset).get())
         length = len(df)
         print(f'got {length} results.')
         if len(df) == 0:
             break
         dfs.append(df)
+        offset += len(df)
+        counter += 1
     
     result = pd.concat(dfs)
+    result.drop_duplicates(inplace=True)
     result['hash_id'] = result.apply(lambda x: create_hash_id(x), axis=1)
     return result
 
