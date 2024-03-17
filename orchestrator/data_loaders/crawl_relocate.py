@@ -8,7 +8,6 @@ if 'test' not in globals():
 
 
 from orchestrator.crawlers.RelocateCrawler import scrape_data_from_listing_url
-from orchestrator.utils.hash import create_hash_id
 
 @data_loader
 def load_data_from_api(*args, **kwargs):
@@ -27,9 +26,7 @@ def load_data_from_api(*args, **kwargs):
             break
         dfs.append(df)
 
-    result = pd.concat(dfs)
-    result['hash_id'] = result.apply(lambda x: create_hash_id(x), axis=1)
-    return result
+    return pd.concat(dfs)
 
 
 @test
@@ -38,7 +35,6 @@ def test_output(output, *args) -> None:
     Template code for testing the output of the block.
     """
     assert output is not None, 'The output is undefined'
-    assert len(output[output['detail_page_url'].isnull()]) == 0
+    assert len(output[output['detail_page_uri'].isnull()]) == 0
     assert len(output[output['job_title'].isnull()]) == 0
     assert len(output[output['company_name'].isnull()]) == 0
-    assert len(output[output['hash_id'].isnull()]) == 0

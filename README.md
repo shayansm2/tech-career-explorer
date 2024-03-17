@@ -27,6 +27,10 @@ tools to use:
 - [ ] Detailed Page
     - [ ] Detailes of relocate and extract data from it
     - [ ] **Detailes of linkedin**
+        - [ ] login page data (skills and company info)
+        - [ ] text analysis (chat gpt api, optional requirement, different flow)
+
+![alt text](statics/orchestrator_flow.png)
 - [ ] crawler settings
     - [ ] preference, configs and filters panel ?
     - [ ] relocate filters
@@ -39,7 +43,8 @@ tools to use:
     - [ ] join and one meta table
     - [ ] tables doc
     - [ ] tests
-    ![alt text](statics/dbt_schema.png)
+
+![alt text](statics/dbt_schema.png)
 - [ ] kafka
     - [ ] event based for linkdin job alerts
 - [ ] spark
