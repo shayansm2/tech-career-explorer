@@ -2,7 +2,7 @@ if 'transformer' not in globals():
     from mage_ai.data_preparation.decorators import transformer
 if 'test' not in globals():
     from mage_ai.data_preparation.decorators import test
-from orchestrator.utils.hash import create_hash_id
+from src.utils.hash import create_hash_id
 
 @transformer
 def transform(data, *args, **kwargs):

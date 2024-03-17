@@ -7,7 +7,7 @@ if 'test' not in globals():
     from mage_ai.data_preparation.decorators import test
 
 
-from orchestrator.crawlers.RelocateCrawler import scrape_data_from_listing_url
+from src.crawlers.RelocateCrawler import scrape_data_from_listing_url
 
 @data_loader
 def load_data_from_api(*args, **kwargs):

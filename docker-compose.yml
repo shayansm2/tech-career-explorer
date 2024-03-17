@@ -6,7 +6,7 @@ services:
       dockerfile: mageai.Dockerfile
     container_name: mageai
     environment:
-      USER_CODE_PATH: /home/src/orchestrator
+      USER_CODE_PATH: /home/src/src
       POSTGRES_DBNAME: ${POSTGRES_DBNAME}
       POSTGRES_SCHEMA: ${POSTGRES_SCHEMA}
       POSTGRES_USER: ${POSTGRES_USER}

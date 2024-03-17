@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
-import orchestrator.schema.positions as schema
+import src.schema.positions as schema
 from urllib.parse import urlparse
 
 

@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
-import orchestrator.schema.positions as schema
+import src.schema.positions as schema
 
 def scrape_data_from_listing_url(url) -> pd.DataFrame:
     response = requests.get(url)

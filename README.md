@@ -3,7 +3,7 @@
 tools to use:
 - postgres as data warehouse (production)
 - duckdb as data warehouse (development)
-- mage-ai as pipeline orchestrator
+- mage-ai as pipeline src
 - DLT, DBT for ELT
 - metabase for dashboard
 <!-- - spark
