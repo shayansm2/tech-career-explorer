@@ -45,8 +45,9 @@ tools to use:
 - [ ] spark
     - [ ] batch processing of PDPs
 - [ ] cloud deployment
-- [ ] github page
+- [x] github page
 - [ ] explain the project in readme
+- [ ] change the name from tech job crawler to tech career explorer
 
 how to build:
 1. docker clone

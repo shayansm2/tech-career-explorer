@@ -7,7 +7,7 @@ if 'test' not in globals():
     from mage_ai.data_preparation.decorators import test
 
 
-from orchestrator.crawlers.RelocateCrawler import scrape_data_from_url
+from orchestrator.crawlers.RelocateCrawler import scrape_data_from_listing_url
 from orchestrator.utils.hash import create_hash_id
 
 @data_loader
@@ -21,7 +21,7 @@ def load_data_from_api(*args, **kwargs):
         page_number+=1
         url = f'https://relocate.me/search?page={page_number}'
         print(f'crawling page {page_number}')
-        df = scrape_data_from_url(url)
+        df = scrape_data_from_listing_url(url)
         print(f'page {page_number} crawled')
         if len(df) == 0:
             break

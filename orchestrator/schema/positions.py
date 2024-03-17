@@ -1,4 +1,4 @@
-column_detail_page_url = 'detail_page_url'
+column_detail_page_uri = 'detail_page_uri'
 column_job_title = 'job_title'
 column_city = 'city'
 column_country = 'country'

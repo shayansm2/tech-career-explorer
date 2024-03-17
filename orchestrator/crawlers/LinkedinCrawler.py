@@ -2,11 +2,11 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 import orchestrator.schema.positions as schema
-# Make a GET request to the LinkedIn jobs page
+from urllib.parse import urlparse
 
 
 
-def scrape_data_from_url(url: str):
+def scrape_data_from_listing_url(url: str):
     response = requests.get(url)
     soup = BeautifulSoup(response.text, 'html.parser')
 
@@ -16,7 +16,8 @@ def scrape_data_from_url(url: str):
     data = []
     for job in jobs:
         row = {}
-        row[schema.column_detail_page_url] = job.find('a', {'class': 'base-card__full-link absolute top-0 right-0 bottom-0 left-0 p-0 z-[2]'})['href']
+        job_url = job.find('a', {'class': 'base-card__full-link absolute top-0 right-0 bottom-0 left-0 p-0 z-[2]'})['href']
+        row[schema.column_detail_page_uri] = urlparse(job_url).path
         row[schema.column_job_title] = job.find('h3', {'class': 'base-search-card__title'}).text.strip()
         row[schema.column_company_name] = job.find('h4', {'class': 'base-search-card__subtitle'}).text.strip()
         location = job.find('span', {'class': 'job-search-card__location'}).text.strip().split(",")

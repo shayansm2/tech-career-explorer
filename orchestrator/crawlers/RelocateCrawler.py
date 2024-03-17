@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import pandas as pd
 import orchestrator.schema.positions as schema
 
-def scrape_data_from_url(url) -> pd.DataFrame:
+def scrape_data_from_listing_url(url) -> pd.DataFrame:
     response = requests.get(url)
     soup = BeautifulSoup(response.text, 'html.parser')
 
@@ -13,7 +13,7 @@ def scrape_data_from_url(url) -> pd.DataFrame:
     for job in jobs:
         row = {}
         job_info = job.find('a')
-        row[schema.column_detail_page_url] = 'https://relocate.me/' + job.find('a')['href']
+        row[schema.column_detail_page_uri] = job.find('a')['href']
         job_info = job_info.text.split("\n")
         row[schema.column_job_title] = job_info[0].strip()
         
