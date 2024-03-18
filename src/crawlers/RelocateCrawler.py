@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import pandas as pd
 import src.schema.positions as schema
 
-def scrape_data_from_listing_url(url) -> pd.DataFrame:
+def scrape_listing_data(url: str) -> pd.DataFrame:
     response = requests.get(url)
     soup = BeautifulSoup(response.text, 'html.parser')
 

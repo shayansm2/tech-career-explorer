@@ -4,12 +4,12 @@ tools to use:
 - postgres as data warehouse (production)
 - duckdb as data warehouse (development)
 - mage-ai as pipeline src
-- DLT, DBT for ELT
+- DBT for ELT
 - metabase for dashboard
-<!-- - spark
-- hamravesh or Arvan as cloud provider
-- teraform  -->
 
+
+
+![alt text](statics/de_zoomcamp_project_schema.png)
 
 ## todos:
 - [x] build
@@ -24,13 +24,12 @@ tools to use:
     - [ ] https://www.glassdoor.com/ crawler
     - [ ] https://siaexplains.github.io/visa-sponsorship-companies/ crawler
     - [x] https://www.linkedin.com/jobs/ crawler
+    - [ ] linkedin retries
 - [ ] Detailed Page
     - [ ] Detailes of relocate and extract data from it
     - [ ] **Detailes of linkedin**
         - [ ] login page data (skills and company info)
         - [ ] text analysis (chat gpt api, optional requirement, different flow)
-
-![alt text](statics/orchestrator_flow.png)
 - [ ] crawler settings
     - [ ] preference, configs and filters panel ?
     - [ ] relocate filters
@@ -43,13 +42,14 @@ tools to use:
     - [ ] join and one meta table
     - [ ] tables doc
     - [ ] tests
-
-![alt text](statics/dbt_schema.png)
 - [ ] kafka
-    - [ ] event based for linkdin job alerts
+    - [ ] event based for linkedin job alerts
 - [ ] spark
     - [ ] batch processing of PDPs
 - [ ] cloud deployment
+    - Hamravesh
+    - Arvan
+    - liara
 - [x] github page
 - [ ] explain the project in readme
 - [ ] change the name from tech job crawler to tech career explorer

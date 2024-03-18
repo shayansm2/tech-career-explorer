@@ -3,13 +3,12 @@ from bs4 import BeautifulSoup
 import pandas as pd
 import src.schema.positions as schema
 from urllib.parse import urlparse
+import re
 
 
-
-def scrape_data_from_listing_url(url: str):
+def scrape_listing_data(url: str):
     response = requests.get(url)
     soup = BeautifulSoup(response.text, 'html.parser')
-
 
     jobs = soup.find_all('div', {'class': 'base-card relative w-full hover:no-underline focus:no-underline base-card--link base-search-card base-search-card--link job-search-card'})
 
@@ -40,7 +39,29 @@ def scrape_data_from_listing_url(url: str):
         data.append(row)
     df = pd.DataFrame(data)
     return df
+
+
+def scrape_detail_data(url: str) -> dict:
+    response = requests.get(url)
+    soup = BeautifulSoup(response.text, 'html.parser')
+
+    # for debugging
+    # with open(url, 'r') as html_file:
+        # content = html_file.read()
+    # soup = BeautifulSoup(content, 'html.parser')
+
+    result = dict()
+
+    job_description = soup .find('div', {'class': 'show-more-less-html__markup show-more-less-html__markup--clamp-after-5 relative overflow-hidden'}) \
+        
+    if job_description is None:
+        return result
     
-# scrape_data_from_url('https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search?geoId=102890719&keywords=software%20engineer&&start=0')
-# scrape_data_from_url('https://www.linkedin.com/jobs/search?geoId=102890719&keywords=software%20engineer&position=1&pageNum=0')
-# scrape_data_from_url('https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search?geoId=102890719&keywords=software%20engineer&&start=70')
+    result['job_description'] = re.sub(' +', ' ', job_description.text.strip().replace('\n', ' '))
+
+    for item in soup.find_all('li', {'class': 'description__job-criteria-item'}):
+        field = item.find('h3').text.strip().lower().replace(' ', '_')
+        value = item.find('span').text.strip()
+        result[field] = value
+    
+    return result

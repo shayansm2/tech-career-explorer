@@ -8,7 +8,7 @@ if 'test' not in globals():
     from mage_ai.data_preparation.decorators import test
 
 from src.crawlers.LinkedinUrlGenerator import LinkedinUrlGenerator
-from src.crawlers.LinkedinCrawler import scrape_data_from_listing_url
+from src.crawlers.LinkedinCrawler import scrape_listing_data
 
 
 @data_loader
@@ -27,7 +27,7 @@ def load_data_from_api(*args, **kwargs):
         if counter % 10 == 0:
             time.sleep(5)
         print(f'get offset {offset}.')
-        df = scrape_data_from_listing_url(url_generator.set_offset(offset).get())
+        df = scrape_listing_data(url_generator.set_offset(offset).get())
         length = len(df)
         print(f'got {length} results.')
         if len(df) == 0:

@@ -1,0 +1,112 @@
+languages:
+  - Python
+  - Java
+  - Go
+  - Golang
+  - SQL
+  - C++
+  - Ruby
+  - PHP
+  - HTML
+  - TypeScript
+  - Perl
+  - C
+  - C#
+  - Rust
+  - Scala
+  - Swift
+  - Kotlin
+  - JavaScript
+  - JS
+  - CSS
+tools:
+  - Linux
+  - Docker
+  - Git
+  - iOS
+# network:
+#   - GraphQL
+#   - REST
+#   - Sockets
+#   - TCP/IP
+# concepts:
+#   - SOLID
+#   - SDLC
+#   - DDD
+#   - SDK
+#   - TDD
+#   - REST Assured
+frameworks:
+  - React
+  - React.js
+  - Symfony
+  - Laravel
+  - .NET
+  - FastAPI
+  - Django
+  - Falsk
+  - Spring MVC
+  - Spring Boot
+  - Spring
+  - Angular
+  - React Native
+  - Node.js
+  - Phoenix
+libraries:
+  - TensorFlow
+  - PyTorch
+  - scikit-learn
+  - Selenium
+database:
+  - PostgreSQL
+  - NoSQL
+  - MongoDB
+  - MySQL
+  - Elastic
+  - ES6+
+infra:
+  - AWS
+  - Kubernetes
+  - GCP
+  - Azure
+  - Github CI
+  - CI/CD
+  - DevOps
+  - Terraform
+  - Prometheus
+  - Infrastructure
+  - Platform
+  - Loki
+  - Nginx
+  - Grafana
+  - Jenkins
+  - IaC
+  - SaaS
+  - DevSecOps
+  - Fastlane
+test:
+  - Unit Testing
+  - TDD
+  - PyTest
+  - TestRail
+  - Cucumber
+# soft-skills:
+#   - Leadership
+# ai-ml-de:
+#   - Machine Learning
+#   - MLOps
+#   - ML
+#   - AI
+#   - Data Science
+#   - Deep Learning
+role:
+  - front end
+  - back end
+  - frontend
+  - backend
+  - developer
+  - software engineer
+  - devops
+  - tech lead
+  - engineering manager
+  - SRE
