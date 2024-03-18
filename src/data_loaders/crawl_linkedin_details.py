@@ -14,7 +14,7 @@ def load_data_from_api(*args, **kwargs):
     """
     df = args[0][['hash_id', 'detail_page_uri']]
     
-    df['detail_page_url'] = df['detail_page_uri'] \
+    df.loc[:, 'detail_page_url'] = df['detail_page_uri'] \
         .apply(lambda x: 'https://www.linkedin.com/' + x)
     
     new_columns = df['detail_page_url'] \

@@ -37,19 +37,36 @@ blocks:
   color: null
   configuration: {}
   downstream_blocks:
-  - load_linkedin_details
+  - extract_keywords_linkedin
   executor_config: null
   executor_type: local_python
   has_callback: false
   language: python
   name: crawl_linkedin_details
   retry_config: null
-  status: executed
+  status: updated
   timeout: null
   type: data_loader
   upstream_blocks:
   - transform_linkedin
   uuid: crawl_linkedin_details
+- all_upstream_blocks_executed: false
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - load_linkedin_details
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: extract_keywords_linkedin
+  retry_config: null
+  status: executed
+  timeout: null
+  type: transformer
+  upstream_blocks:
+  - crawl_linkedin_details
+  uuid: extract_keywords_linkedin
 - all_upstream_blocks_executed: true
   color: null
   configuration: {}
@@ -66,7 +83,7 @@ blocks:
   upstream_blocks:
   - transform_linkedin
   uuid: load_linkedin
-- all_upstream_blocks_executed: true
+- all_upstream_blocks_executed: false
   color: null
   configuration: {}
   downstream_blocks: []
@@ -80,7 +97,7 @@ blocks:
   timeout: null
   type: data_exporter
   upstream_blocks:
-  - crawl_linkedin_details
+  - extract_keywords_linkedin
   uuid: load_linkedin_details
 - all_upstream_blocks_executed: true
   color: null
@@ -118,7 +135,7 @@ settings:
 spark_config: {}
 tags: []
 type: python
-updated_at: '2024-03-18 22:21:34'
+updated_at: '2024-03-18 22:50:30'
 uuid: beaming_wave
 variables_dir: /home/src/mage_data/src
 widgets: []

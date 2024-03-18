@@ -22,16 +22,23 @@ def load_data_from_api(*args, **kwargs):
 
     offset = 0
     counter = 0
+    retries = 0
+    max_retrie = 5
+    sleep_time = 5
+    
     dfs = []
     while True:
         if counter % 10 == 0:
-            time.sleep(5)
+            time.sleep(sleep_time)
         print(f'get offset {offset}.')
         df = scrape_listing_data(url_generator.set_offset(offset).get())
         length = len(df)
         print(f'got {length} results.')
         if len(df) == 0:
-            break
+            if retries == max_retrie:
+                break
+            retries += 1
+            time.sleep(sleep_time)
         dfs.append(df)
         offset += len(df)
         counter += 1
