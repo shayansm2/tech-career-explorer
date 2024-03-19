@@ -10,7 +10,6 @@ if 'test' not in globals():
 from src.crawlers.LinkedinUrlGenerator import LinkedinUrlGenerator
 from src.crawlers.LinkedinCrawler import scrape_listing_data
 
-
 @data_loader
 def load_data_from_api(*args, **kwargs):
     """
@@ -23,8 +22,8 @@ def load_data_from_api(*args, **kwargs):
     offset = 0
     counter = 0
     retries = 0
-    max_retrie = 5
-    sleep_time = 5
+    max_retrie = 10
+    sleep_time = 10
     
     dfs = []
     while True:

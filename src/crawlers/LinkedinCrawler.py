@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 import src.schema.positions as schema
+import src.schema.details as details_schema
 from urllib.parse import urlparse
 import re
 
@@ -50,14 +51,16 @@ def scrape_detail_data(url: str) -> dict:
         # content = html_file.read()
     # soup = BeautifulSoup(content, 'html.parser')
 
-    result = dict()
+    result = {
+        'url': url
+    }
 
     job_description = soup .find('div', {'class': 'show-more-less-html__markup show-more-less-html__markup--clamp-after-5 relative overflow-hidden'}) \
         
     if job_description is None:
         return result
     
-    result['job_description'] = re.sub(' +', ' ', job_description.text.strip().replace('\n', ' '))
+    result[details_schema.column_job_description] = re.sub(' +', ' ', job_description.text.strip().replace('\n', ' '))
 
     for item in soup.find_all('li', {'class': 'description__job-criteria-item'}):
         field = item.find('h3').text.strip().lower().replace(' ', '_')

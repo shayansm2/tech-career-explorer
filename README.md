@@ -24,12 +24,10 @@ tools to use:
     - [ ] https://www.glassdoor.com/ crawler
     - [ ] https://siaexplains.github.io/visa-sponsorship-companies/ crawler
     - [x] https://www.linkedin.com/jobs/ crawler
-    - [ ] linkedin retries
+    - [x] linkedin retries
 - [ ] Detailed Page
     - [ ] Detailes of relocate and extract data from it
-    - [ ] **Detailes of linkedin**
-        - [ ] login page data (skills and company info)
-        - [ ] text analysis (chat gpt api, optional requirement, different flow)
+    - [x] Detailes of linkedin
 - [ ] crawler settings
     - [ ] preference, configs and filters panel ?
     - [ ] relocate filters
@@ -53,6 +51,7 @@ tools to use:
 - [x] github page
 - [ ] explain the project in readme
 - [ ] change the name from tech job crawler to tech career explorer
+- [ ] config handler
 
 how to build:
 1. docker clone

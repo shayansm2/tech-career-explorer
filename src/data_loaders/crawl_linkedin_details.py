@@ -1,27 +1,41 @@
-import io
 import pandas as pd
-import requests
 if 'data_loader' not in globals():
     from mage_ai.data_preparation.decorators import data_loader
 if 'test' not in globals():
     from mage_ai.data_preparation.decorators import test
 from src.crawlers.LinkedinCrawler import scrape_detail_data
+import src.schema.details as schema
+import time
 
 @data_loader
 def load_data_from_api(*args, **kwargs):
-    """
-    Template for loading data from API
-    """
     df = args[0][['hash_id', 'detail_page_uri']]
     
     df.loc[:, 'detail_page_url'] = df['detail_page_uri'] \
         .apply(lambda x: 'https://www.linkedin.com/' + x)
     
-    new_columns = df['detail_page_url'] \
+    columns = df['detail_page_url'] \
         .apply(scrape_detail_data) \
         .apply(pd.Series)
     
-    df = pd.concat([df, new_columns], axis=1)
+    sleep_time = 10
+    max_retries = 10
+    retries = 0
+    while len(columns[columns[schema.column_job_description].isnull()]) > 0 and retries <= max_retries:
+        time.sleep(sleep_time)
+        retries += 1
+        print('number of missing rows:', len(columns[columns[schema.column_job_description].isnull()]))
+        print(f'retry number {retries}')
+
+        missing_data = columns[schema.column_job_description].isnull()
+        new_columns = columns.loc[missing_data, 'url'] \
+            .apply(scrape_detail_data) \
+            .apply(pd.Series)
+        
+        for col in new_columns.columns:
+            columns.loc[missing_data, col] = new_columns[col]
+    
+    df = pd.concat([df, columns], axis=1)
     
     return df
 
@@ -32,3 +46,4 @@ def test_output(output, *args) -> None:
     Template code for testing the output of the block.
     """
     assert output is not None, 'The output is undefined'
+    assert len(output[output['detail_page_uri'].isnull()]) == 0
