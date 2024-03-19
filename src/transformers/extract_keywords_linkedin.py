@@ -1,16 +1,13 @@
-import yaml
 if 'transformer' not in globals():
     from mage_ai.data_preparation.decorators import transformer
 if 'test' not in globals():
     from mage_ai.data_preparation.decorators import test
 import src.schema.details as schema
+from src.configs.configs import get_config
 
 @transformer
 def transform(data, *args, **kwargs):
-    with open('src/configs/keywords.yml', 'r') as file:
-        keywords = yaml.safe_load(file)
-
-    for field, flags in keywords.items():
+    for field, flags in get_config('keywords').items():
         data[field] = data[schema.column_job_description] \
             .apply(lambda x: get_flags(x, flags))
 

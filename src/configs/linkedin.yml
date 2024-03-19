@@ -1,0 +1,2 @@
+max_retries: 10
+sleep_time: 10

@@ -1,3 +1,4 @@
+import time
 import pandas as pd
 if 'data_loader' not in globals():
     from mage_ai.data_preparation.decorators import data_loader
@@ -5,7 +6,7 @@ if 'test' not in globals():
     from mage_ai.data_preparation.decorators import test
 from src.crawlers.LinkedinCrawler import scrape_detail_data
 import src.schema.details as schema
-import time
+from src.configs.configs import get_config
 
 @data_loader
 def load_data_from_api(*args, **kwargs):
@@ -18,8 +19,8 @@ def load_data_from_api(*args, **kwargs):
         .apply(scrape_detail_data) \
         .apply(pd.Series)
     
-    sleep_time = 10
-    max_retries = 10
+    max_retries = get_config('linkedin', 'max_retries')
+    sleep_time = get_config('linkedin', 'sleep_time')
     retries = 0
     while len(columns[columns[schema.column_job_description].isnull()]) > 0 and retries <= max_retries:
         time.sleep(sleep_time)

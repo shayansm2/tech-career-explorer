@@ -51,7 +51,7 @@ tools to use:
 - [x] github page
 - [ ] explain the project in readme
 - [ ] change the name from tech job crawler to tech career explorer
-- [ ] config handler
+- [x] config handler
 
 how to build:
 1. docker clone

@@ -9,6 +9,7 @@ if 'test' not in globals():
 
 from src.crawlers.LinkedinUrlGenerator import LinkedinUrlGenerator
 from src.crawlers.LinkedinCrawler import scrape_listing_data
+from src.configs.configs import get_config
 
 @data_loader
 def load_data_from_api(*args, **kwargs):
@@ -22,8 +23,8 @@ def load_data_from_api(*args, **kwargs):
     offset = 0
     counter = 0
     retries = 0
-    max_retrie = 10
-    sleep_time = 10
+    max_retries = get_config('linkedin', 'max_retries')
+    sleep_time = get_config('linkedin', 'sleep_time')
     
     dfs = []
     while True:
@@ -34,7 +35,7 @@ def load_data_from_api(*args, **kwargs):
         length = len(df)
         print(f'got {length} results.')
         if len(df) == 0:
-            if retries == max_retrie:
+            if retries == max_retries:
                 break
             retries += 1
             time.sleep(sleep_time)
