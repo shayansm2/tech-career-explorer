@@ -34,7 +34,7 @@ tools to use:
 - [x] hash_id and update, replace
 - [ ] db id for update not insert
 - [ ] dashboard
-    - [ ] store dashboards
+    - [x] store dashboards
     - [ ] handle listing with metabase model
     - [ ] handle setting flags with metabase actions (not_interested, interested, applied)
 - [ ] dbt

@@ -8,7 +8,6 @@ if [ ! -f ".env" ]; then
     echo POSTGRES_PASSWORD=password >> .env
     echo POSTGRES_HOST=postgres >> .env
     echo POSTGRES_PORT=5432 >> .env
-    echo POSTGRES_METABASE_DBNAME=metabase_data >> .env
 fi
 
 docker-compose up --build

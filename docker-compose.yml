@@ -24,7 +24,7 @@ services:
     restart: on-failure
     container_name: postgres
     environment:
-      POSTGRES_MULTIPLE_DATABASES: ${POSTGRES_DBNAME}, ${POSTGRES_METABASE_DBNAME}
+      POSTGRES_DB: ${POSTGRES_DBNAME}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
@@ -37,12 +37,7 @@ services:
     volumes:
       - ./metabase-data:/metabase-data
     environment:
-      MB_DB_TYPE: postgres
-      MB_DB_DBNAME: ${POSTGRES_METABASE_DBNAME}
-      MB_DB_PORT: ${POSTGRES_PORT}
-      MB_DB_USER: ${POSTGRES_USER}
-      MB_DB_PASS: ${POSTGRES_PASSWORD}
-      MB_DB_HOST: ${POSTGRES_HOST}
+      MB_DB_TYPE: h2
       MB_DB_FILE: ./metabase-data/metabase.db
     ports:
       - "3000:3000" # metabase dashboard
