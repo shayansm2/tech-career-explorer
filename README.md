@@ -33,17 +33,14 @@ tools to use:
     - [ ] relocate filters
 - [x] hash_id and update, replace
 - [ ] db id for update not insert
-- [ ] UI
-    - [ ] **store dashboards**
-    - [ ] panel for sertting values for positions (not_interested, interested, applied)
+- [ ] dashboard
+    - [ ] store dashboards
+    - [ ] handle listing with metabase model
+    - [ ] handle setting flags with metabase actions (not_interested, interested, applied)
 - [ ] dbt
     - [ ] join and one meta table
     - [ ] tables doc
     - [ ] tests
-- [ ] kafka
-    - [ ] event based for linkedin job alerts
-- [ ] spark
-    - [ ] batch processing of PDPs
 - [ ] cloud deployment
     - Hamravesh
     - Arvan
@@ -52,6 +49,8 @@ tools to use:
 - [ ] explain the project in readme
 - [ ] change the name from tech job crawler to tech career explorer
 - [x] config handler
+- [ ] DB backup
+- [ ] pipeline runner
 
 how to build:
 1. docker clone

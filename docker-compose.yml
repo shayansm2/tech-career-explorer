@@ -17,32 +17,32 @@ services:
       - 6789:6789 # mage-ai dashboard
       - 8080:8080 # dbt docs
     volumes:
-      - .:/home/src/
+      - ./src:/home/src/src
     restart: on-failure:5
   postgres:
     image: postgres:14
     restart: on-failure
     container_name: postgres
     environment:
-      POSTGRES_DB: ${POSTGRES_DBNAME}
+      POSTGRES_MULTIPLE_DATABASES: ${POSTGRES_DBNAME}, ${POSTGRES_METABASE_DBNAME}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - "${POSTGRES_PORT}:5432" # postgres db
   metabase:
     image: metabase/metabase:latest
     container_name: metabase
+    volumes:
+      - ./metabase-data:/metabase-data
     environment:
       MB_DB_TYPE: postgres
-      MB_DB_DBNAME: ${POSTGRES_DBNAME}
+      MB_DB_DBNAME: ${POSTGRES_METABASE_DBNAME}
       MB_DB_PORT: ${POSTGRES_PORT}
       MB_DB_USER: ${POSTGRES_USER}
       MB_DB_PASS: ${POSTGRES_PASSWORD}
       MB_DB_HOST: ${POSTGRES_HOST}
+      MB_DB_FILE: ./metabase-data/metabase.db
     ports:
       - "3000:3000" # metabase dashboard
-    volumes:
-      - metabase-data:/metabase.db
-
-volumes:
-  metabase-data:

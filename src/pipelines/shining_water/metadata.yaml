@@ -69,7 +69,7 @@ settings:
 spark_config: {}
 tags: []
 type: python
-updated_at: '2024-03-17 11:29:27'
+updated_at: '2024-03-21 20:19:51'
 uuid: shining_water
 variables_dir: /home/src/mage_data/src
 widgets: []

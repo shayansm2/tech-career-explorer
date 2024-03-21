@@ -22,3 +22,5 @@ secrets/
 
 # venv
 demoenv/
+playground.py
+playground.ipynb
