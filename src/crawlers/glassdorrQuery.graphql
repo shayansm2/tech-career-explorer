@@ -1,0 +1,69 @@
+query JobSearchResultsQuery(
+    $excludeJobListingIds: [Long!],
+    $filterParams: [FilterParams],
+    $keyword: String,
+    $locationId: Int,
+    $locationType: LocationTypeEnum,
+    $numJobsToShow: Int!,
+    $originalPageUrl: String,
+    $pageCursor: String,
+    $pageNumber: Int,
+    $pageType: PageTypeEnum,
+    $parameterUrlInput: String,
+    $queryString: String,
+    $seoFriendlyUrlInput: String,
+    $seoUrl: Boolean
+) {
+  jobListings(
+    contextHolder: {
+        queryString: $queryString,
+        pageTypeEnum: $pageType,
+        searchParams: {
+            excludeJobListingIds: $excludeJobListingIds,
+            keyword: $keyword,
+            locationId: $locationId,
+            locationType: $locationType,
+            numPerPage: $numJobsToShow,
+            pageCursor: $pageCursor,
+            pageNumber: $pageNumber,
+            filterParams: $filterParams,
+            originalPageUrl: $originalPageUrl,
+            seoFriendlyUrlInput: $seoFriendlyUrlInput,
+            parameterUrlInput: $parameterUrlInput,
+            seoUrl: $seoUrl,
+            searchType: SR
+        }
+    }
+  ) {
+    jobListings {
+      ...JobView
+    }
+    jobSearchTrackingKey
+    totalJobsCount
+  }
+}
+
+fragment JobView on JobListingSearchResult {
+  jobview {
+    header {
+      ageInDays
+      employerNameFromSearch
+      isSponsoredJob
+      isSponsoredEmployer
+      normalizedJobTitle
+      jobTitleText
+      locationName
+      locationType
+      payCurrency
+      payPeriod
+      payPeriodAdjustedPay {
+        p10
+        p50
+        p90
+      }
+      rating
+      salarySource
+      seoJobLink
+    }
+  }
+}
