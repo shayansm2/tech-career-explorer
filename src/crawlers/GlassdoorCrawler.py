@@ -1,15 +1,19 @@
+import tls_client
+import re
+import os
 import requests
-from src.crawlers.GlassdoorCrawlerInputs import GlassdorrCrawlerInputs
-import src.schema.positions as schema
+import pandas as pd
 from urllib.parse import urlparse
 from datetime import datetime, timedelta
-import pandas as pd
+from dotenv import load_dotenv, set_key
+
+from src.crawlers.GlassdoorCrawlerInputs import GlassdorrCrawlerInputs
+import src.schema.positions as schema
 
 class GlassdorrCrawler(object):
     def __init__(self) -> None:
         self.url = 'https://www.glassdoor.com/graph'
-        self.site_url = 'https://www.glassdoor.com'
-        self.csrf_token = self._get_csrf_token()
+        self.base_url = 'https://www.glassdoor.com'
 
     def scrape_listing_data(self, inputs: GlassdorrCrawlerInputs): 
         response = requests.post(
@@ -21,33 +25,55 @@ class GlassdorrCrawler(object):
         data = response.json()[0]['data']['jobListings']['jobListings']
         return pd.DataFrame(list(map(self.extract_fields, data)))
 
-    # todo check with jobspy    
     def get_headers(self):
-        return {
-                'authority': 'www.glassdoor.com',
-                'accept': '*/*',
-                'accept-language': 'en-GB,en-US;q=0.9,en;q=0.8',
-                'apollographql-client-name': 'job-search-next',
-                'apollographql-client-version': '7.15.4',
-                'content-type': 'application/json',
-                'gd-csrf-token': self.csrf_token,
-                'origin': self.site_url,
-                'referer': self.site_url,
-                'sec-ch-ua': '"Chromium";v="122", "Not(A:Brand";v="24", "Google Chrome";v="122"',
-                'sec-ch-ua-mobile': '?0',
-                'sec-ch-ua-platform': '"macOS"',
-                'sec-fetch-dest': 'empty',
-                'sec-fetch-mode': 'cors',
-                'sec-fetch-site': 'same-origin',
-                'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
-                'x-gd-job-page': 'serp',
+        headers = {
+            'authority': 'www.glassdoor.com',
+            'accept': '*/*',
+            'accept-language': 'en-GB,en-US;q=0.9,en;q=0.8',
+            'apollographql-client-name': 'job-search-next',
+            'apollographql-client-version': '7.15.4',
+            'content-type': 'application/json',
+            'origin': self.base_url,
+            'referer': self.base_url,
+            'sec-ch-ua': '"Chromium";v="122", "Not(A:Brand";v="24", "Google Chrome";v="122"',
+            'sec-ch-ua-mobile': '?0',
+            'sec-ch-ua-platform': '"macOS"',
+            'sec-fetch-dest': 'empty',
+            'sec-fetch-mode': 'cors',
+            'sec-fetch-site': 'same-origin',
+            'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
+            'x-gd-job-page': 'serp',
         }
-        
-    # todo check with jobspy
-    @staticmethod
-    def _get_csrf_token():
-        return 'jO-6yIPii6CFGzwsNOikVQ:WJ9XlupTFHEOHu7bC25GRDY_6CoZgPAtrXOn-sIcbIeAwWxsVWOfL-a0QbZ336OAvJ2qroRASrf451akuYaT3g:CiYwBOV-Bd-dNAMIA4d8anUb2iqmJIJ1R9jaRH_qP_A'
-    
+
+        headers['gd-csrf-token'] = self.get_csrf_token(headers)
+        return headers
+
+    def get_csrf_token(self, headers):
+        load_dotenv()
+        date = os.getenv("GLASSDOOR_CSRF_TOKEN_DATE")
+        token = os.getenv("GLASSDOOR_CSRF_TOKEN_VALUE")
+        current_date = datetime.now().date().isoformat()
+
+        if date == current_date and token is not None:
+            return token
+        else:
+            token = self._get_csrf_token(headers)
+            set_key(".env", "GLASSDOOR_CSRF_TOKEN_DATE", current_date)
+            set_key(".env", "GLASSDOOR_CSRF_TOKEN_VALUE", token)
+            return token
+
+    def _get_csrf_token(self, headers):
+        session = tls_client.Session(random_tls_extension_order=True)
+        res = session.get(
+            f"{self.base_url}/Job/computer-science-jobs.htm", headers=headers
+        )
+        pattern = r'"token":\s*"([^"]+)"'
+        matches = re.findall(pattern, res.text)
+        token = None
+        if matches:
+            token = matches[0]
+        return token
+
     ## todo check with jobspy
     def get_listing_body(self, inputs: GlassdorrCrawlerInputs):
         with open('./src/crawlers/glassdorrQuery.graphql', 'r') as file:
