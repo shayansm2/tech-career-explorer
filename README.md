@@ -18,16 +18,15 @@ tools to use:
     - [x] build metabase docker
     - [x] build.sh
 - [x] simple pipeline
-- [ ] multi crawler
-    - [ ] ICrawler - Exporter
+- [x] listing crawlers
     - [x] https://relocate.me/ crawler
-    - [ ] https://www.glassdoor.com/ crawler
-    - [ ] https://siaexplains.github.io/visa-sponsorship-companies/ crawler
+    - [x] https://www.glassdoor.com/ crawler
     - [x] https://www.linkedin.com/jobs/ crawler
     - [x] linkedin retries
 - [ ] Detailed Page
-    - [ ] Detailes of relocate and extract data from it
-    - [x] Detailes of linkedin
+    - [ ] Details of relocate and extract data from it
+    - [ ] detail page of glassdoor 
+    - [x] Details of linkedin
 - [ ] crawler settings
     - [ ] preference, configs and filters panel ?
     - [ ] relocate filters
