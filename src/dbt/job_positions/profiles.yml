@@ -1,0 +1,11 @@
+job_positions:
+  outputs:
+    dev:
+      type: postgres
+      host: "{{ env_var('POSTGRES_HOST', 'host.docker.internal') }}"
+      user: "{{ env_var('POSTGRES_USER', 'postgres') }}"
+      password: "{{ env_var('POSTGRES_PASSWORD', 'postgres') }}"
+      port: 5432 ## todo read from env vars
+      dbname: "{{ env_var('POSTGRES_DBNAME', 'public') }}"
+      schema: "{{ env_var('POSTGRES_SCHEMA', 'analytics') }}"
+  target: dev

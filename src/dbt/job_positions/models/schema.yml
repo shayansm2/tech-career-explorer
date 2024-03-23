@@ -1,0 +1,10 @@
+version: 2
+
+sources:
+  - name: staging
+    database: postgres
+    schema: public
+    tables:
+      - name: linkedin_job_positions
+      - name: relocate_job_positions
+      - name: glassdoor_job_positions
