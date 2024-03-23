@@ -28,10 +28,9 @@ tools to use:
     - [ ] detail page of glassdoor 
     - [x] Details of linkedin
 - [ ] crawler settings
-    - [ ] preference, configs and filters panel ?
-    - [ ] relocate filters
+    - [x] preference, configs and filters panel ?
 - [x] hash_id and update, replace
-- [ ] db id for update not insert
+- [x] db id for update not insert
 - [ ] dashboard
     - [x] store dashboards
     - [ ] handle listing with metabase model
@@ -49,7 +48,7 @@ tools to use:
 - [ ] change the name from tech job crawler to tech career explorer
 - [x] config handler
 - [ ] DB backup
-- [ ] pipeline runner
+- [ ] scheduled pipeline runner
 
 how to build:
 1. docker clone

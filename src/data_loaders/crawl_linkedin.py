@@ -21,14 +21,15 @@ def load_data_from_api(*args, **kwargs):
         .set_keywords('Software Engineer')
 
     offset = 0
-    counter = 0
+    call_counter = 0
     retries = 0
     max_retries = get_config('crawlers', 'linkedin.max_retries')
     sleep_time = get_config('crawlers', 'linkedin.sleep_time')
+    max_offset = get_config('crawlers', 'linkedin.max_offset')
     
     dfs = []
-    while True:
-        if counter % 10 == 0:
+    while offset < max_offset:
+        if call_counter % 10 == 0:
             time.sleep(sleep_time)
         print(f'get offset {offset}.')
         df = scrape_listing_data(url_generator.set_offset(offset).get())
@@ -41,7 +42,7 @@ def load_data_from_api(*args, **kwargs):
             time.sleep(sleep_time)
         dfs.append(df)
         offset += len(df)
-        counter += 1
+        call_counter += 1
     
     return pd.concat(dfs)
 
