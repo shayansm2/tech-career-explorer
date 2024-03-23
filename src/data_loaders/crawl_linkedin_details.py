@@ -19,8 +19,8 @@ def load_data_from_api(*args, **kwargs):
         .apply(scrape_detail_data) \
         .apply(pd.Series)
     
-    max_retries = get_config('linkedin', 'max_retries')
-    sleep_time = get_config('linkedin', 'sleep_time')
+    max_retries = get_config('crawlers', 'linkedin.max_retries')
+    sleep_time = get_config('crawlers', 'linkedin.sleep_time')
     retries = 0
     while len(columns[columns[schema.column_job_description].isnull()]) > 0 and retries <= max_retries:
         time.sleep(sleep_time)

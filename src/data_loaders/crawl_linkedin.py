@@ -23,8 +23,8 @@ def load_data_from_api(*args, **kwargs):
     offset = 0
     counter = 0
     retries = 0
-    max_retries = get_config('linkedin', 'max_retries')
-    sleep_time = get_config('linkedin', 'sleep_time')
+    max_retries = get_config('crawlers', 'linkedin.max_retries')
+    sleep_time = get_config('crawlers', 'linkedin.sleep_time')
     
     dfs = []
     while True:

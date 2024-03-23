@@ -9,6 +9,7 @@ from dotenv import load_dotenv, set_key
 
 from src.crawlers.GlassdoorCrawlerInputs import GlassdorrCrawlerInputs
 import src.schema.positions as schema
+from src.configs.configs import get_config
 
 class GlassdorrCrawler(object):
     def __init__(self) -> None:
@@ -19,7 +20,8 @@ class GlassdorrCrawler(object):
         response = requests.post(
             self.url,
             headers=self.get_headers(),
-            json=self.get_listing_body(inputs)
+            json=self.get_listing_body(inputs),
+            timeout=get_config('crawlers', 'glassdoor.timeout_time')
         )
 
         data = response.json()[0]['data']['jobListings']['jobListings']
@@ -74,43 +76,52 @@ class GlassdorrCrawler(object):
             token = matches[0]
         return token
 
-    ## todo check with jobspy
     def get_listing_body(self, inputs: GlassdorrCrawlerInputs):
         with open('./src/crawlers/glassdorrQuery.graphql', 'r') as file:
             query = file.read()
 
-        return [{
+        result = [{
             'operationName': 'JobSearchResultsQuery',
             'variables': {
                 'keyword': inputs.keyword,
                 'locationId': inputs.location_id,
                 'locationType': inputs.location_type,
                 'numJobsToShow': 30, # should be 30 always
-                'parameterUrlInput': 'IL.0,11_IN178_KO12,29', ## todo check with jobspy
+                'parameterUrlInput': f"IL.0,12_I{inputs.location_type}{inputs.location_id}",
                 'pageType': 'SERP',
-                'seoFriendlyUrlInput': 'netherlands-software-engineer-jobs', ## todo check with jobspy
                 'seoUrl': True,
-                'pageNumber': inputs.page
+                'pageNumber': inputs.page,
+                "fromage": inputs.age,
+                "sort": "date",
             },
             'query': query,
         }]
+
+        if inputs.age:
+            result['variables']['filterParams'] = [{"filterKey": "fromAge", "values": str(inputs.age)}]
+
+        return result
     
     @staticmethod
     def extract_fields(data: dict) -> dict:
         data = data['jobview']['header']
         result = {
-            schema.column_job_title: data['normalizedJobTitle'],
-            'desc': data['jobTitleText'],
+            schema.column_job_type: data['normalizedJobTitle'],
+            schema.column_job_title: data['jobTitleText'],
             schema.column_company_name: data['employerNameFromSearch'],
             schema.column_detail_page_uri: urlparse(data['seoJobLink']).path,
             schema.column_created_at: (datetime.now() - timedelta(days=data['ageInDays'])).strftime('%Y-%m-%d'),
-            'rating': data['rating'],
-            'pay_currency': data['payCurrency'],
+            schema.column_rating: data['rating'],
+            schema.column_pay_currency: data['payCurrency'],
+            schema.column_pay_period: data['payPeriod'],
         }
 
         if data['locationType'] == 'C':
             result[schema.column_city] = data['locationName']
         elif data['locationType'] == 'N':
             result[schema.column_country] = data['locationName']
+        elif data['locationType'] == 'S':
+            result[schema.column_country] = 'remote'
+            result[schema.column_city] = 'remote'
 
         return result

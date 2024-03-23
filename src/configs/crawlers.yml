@@ -1,0 +1,8 @@
+linkedin:
+  max_retries: 10
+  sleep_time: 10
+  max_page: 15
+glassdoor:
+  max_page: 15
+  timeout_time: 10
+  max_retries: 3
