@@ -8,19 +8,88 @@ blocks:
     dbt_profiles_file_path: dbt/job_positions/profiles.yml
     dbt_project_name: dbt/job_positions
     file_source:
-      path: dbts/run.yaml
+      path: dbts/deps.yaml
   downstream_blocks: []
   executor_config: null
   executor_type: local_python
   has_callback: false
   language: yaml
-  name: run
+  name: deps
   retry_config: null
   status: executed
   timeout: null
   type: dbt
   upstream_blocks: []
-  uuid: run
+  uuid: deps
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    dbt_profile_target: dev
+    dbt_profiles_file_path: dbt/job_positions/profiles.yml
+    dbt_project_name: dbt/job_positions
+    file_path: dbt/job_positions/models/staging/stg_linkedin.sql
+    file_source:
+      path: dbt/job_positions/models/staging/stg_linkedin.sql
+      project_path: dbt/job_positions
+    limit: 1000
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: dbt/job_positions/models/staging/stg_linkedin
+  retry_config: null
+  status: executed
+  timeout: null
+  type: dbt
+  upstream_blocks: []
+  uuid: dbt/job_positions/models/staging/stg_linkedin
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    dbt_profile_target: dev
+    dbt_profiles_file_path: dbt/job_positions/profiles.yml
+    dbt_project_name: dbt/job_positions
+    file_path: dbt/job_positions/models/staging/stg_glassdoor.sql
+    file_source:
+      path: dbt/job_positions/models/staging/stg_glassdoor.sql
+      project_path: dbt/job_positions
+    limit: 1000
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: dbt/job_positions/models/staging/stg_glassdoor
+  retry_config: null
+  status: updated
+  timeout: null
+  type: dbt
+  upstream_blocks: []
+  uuid: dbt/job_positions/models/staging/stg_glassdoor
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    dbt_profile_target: dev
+    dbt_profiles_file_path: dbt/job_positions/profiles.yml
+    dbt_project_name: dbt/job_positions
+    file_path: dbt/job_positions/models/staging/stg_relocate.sql
+    file_source:
+      path: dbt/job_positions/models/staging/stg_relocate.sql
+      project_path: dbt/job_positions
+    limit: 1000
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: dbt/job_positions/models/staging/stg_relocate
+  retry_config: null
+  status: executed
+  timeout: null
+  type: dbt
+  upstream_blocks: []
+  uuid: dbt/job_positions/models/staging/stg_relocate
 cache_block_output_in_memory: false
 callbacks: []
 concurrency_config: {}

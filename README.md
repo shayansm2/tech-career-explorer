@@ -34,7 +34,7 @@ tools to use:
 - [ ] dashboard
     - [x] store dashboards
     - [ ] handle listing with metabase model
-    - [ ] handle setting flags with metabase actions (not_interested, interested, applied)
+    - [ ] handle setting flags with metabase actions (not_interested, interested, applied) -> a good reference for action is [this](https://app.rolepad.com/opportunities/add)
 - [ ] dbt
     - [ ] join and one meta table
     - [ ] tables doc

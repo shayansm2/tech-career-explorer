@@ -2,8 +2,8 @@ version: 2
 
 sources:
   - name: staging
-    database: postgres
-    schema: public
+    database: "{{ env_var('POSTGRES_DBNAME', 'public') }}"
+    schema: "{{ env_var('POSTGRES_SCHEMA', 'public') }}"
     tables:
       - name: linkedin_job_positions
       - name: relocate_job_positions
