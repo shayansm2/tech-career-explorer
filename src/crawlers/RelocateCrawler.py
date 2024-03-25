@@ -1,7 +1,9 @@
 import requests
+import re
 from bs4 import BeautifulSoup
 import pandas as pd
 import src.schema.positions as schema
+import src.schema.details as details_schema
 
 def scrape_listing_data(url: str) -> pd.DataFrame:
     response = requests.get(url)
@@ -40,3 +42,25 @@ def scrape_listing_data(url: str) -> pd.DataFrame:
     
     df = pd.DataFrame(data)
     return df
+
+
+def scrape_detail_data(url: str) -> dict:
+    result = {}
+
+    response = requests.get(url)
+    soup = BeautifulSoup(response.text, 'html.parser')
+
+    desc_items = soup.find_all('div', {'class': 'job-info__description-item'})
+    desc_items = list(map(lambda x: x.text.strip(), desc_items))
+    desc = re.sub(' +', ' ', '\n'.join(desc_items).strip().replace('\n', ' '))
+    result[details_schema.column_job_description] = desc
+
+    relocation_package_items = soup.find_all('div', {'class': 'relocation-packages__item'})
+    relocation_package_items = list(map(lambda x: x.text.strip(), relocation_package_items))
+    result[details_schema.column_relocation_package_options] = relocation_package_items
+
+    job_tags = soup.find_all('a', {'class': 'job__tag'})
+    job_tags = list(map(lambda x: x.text.strip(), job_tags))
+    result[details_schema.column_tags] = job_tags
+
+    return result

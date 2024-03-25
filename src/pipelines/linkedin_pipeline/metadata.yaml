@@ -53,7 +53,7 @@ blocks:
   color: null
   configuration: {}
   downstream_blocks:
-  - extract_keywords_linkedin
+  - extract_keywords
   executor_config: null
   executor_type: local_python
   has_callback: false
@@ -75,14 +75,14 @@ blocks:
   executor_type: local_python
   has_callback: false
   language: python
-  name: extract_keywords_linkedin
+  name: extract_keywords
   retry_config: null
   status: executed
   timeout: null
   type: transformer
   upstream_blocks:
   - crawl_linkedin_details
-  uuid: extract_keywords_linkedin
+  uuid: extract_keywords
 - all_upstream_blocks_executed: true
   color: null
   configuration: {}
@@ -97,7 +97,7 @@ blocks:
   timeout: null
   type: data_exporter
   upstream_blocks:
-  - extract_keywords_linkedin
+  - extract_keywords
   uuid: load_linkedin_details
 cache_block_output_in_memory: false
 callbacks: []

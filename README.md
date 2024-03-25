@@ -24,7 +24,7 @@ tools to use:
     - [x] https://www.linkedin.com/jobs/ crawler
     - [x] linkedin retries
 - [ ] Detailed Page
-    - [ ] Details of relocate and extract data from it
+    - [x] Details of relocate and extract data from it
     - [ ] detail page of glassdoor 
     - [x] Details of linkedin
 - [ ] crawler settings
