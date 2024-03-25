@@ -7,9 +7,10 @@ select
     company_name,
     city,
     country,
-    created_at,
     concat('https://www.glassdoor.com', detail_page_uri) as page_url,
+    'glassdoor' as source,
 
+    created_at,
     job_type,
     rating,
     pay_currency,

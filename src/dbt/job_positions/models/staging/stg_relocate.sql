@@ -8,6 +8,7 @@ select
     city,
     country,
     concat('https://relocate.me', detail_page_uri) as page_url,
+    'relocate' as source,
 
     relocation_package,
     remote_option,

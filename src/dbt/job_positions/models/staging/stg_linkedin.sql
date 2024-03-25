@@ -7,6 +7,8 @@ select
     company_name,
     city,
     country,
-    created_at,
-    concat('https://linkedin.com', detail_page_uri) as page_url
+    concat('https://linkedin.com', detail_page_uri) as page_url,
+    'linkedin' as source,
+
+    created_at
 from {{ source('staging', 'linkedin_job_positions') }}
