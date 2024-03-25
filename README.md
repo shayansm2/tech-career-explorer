@@ -45,7 +45,7 @@ tools to use:
     - liara
 - [x] github page
 - [ ] explain the project in readme
-- [ ] change the name from tech job crawler to tech career explorer
+- [x] change the name from tech job crawler to tech career explorer
 - [x] config handler
 - [ ] DB backup
 - [ ] scheduled pipeline runner
