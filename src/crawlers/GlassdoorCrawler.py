@@ -6,6 +6,8 @@ import pandas as pd
 from urllib.parse import urlparse
 from datetime import datetime, timedelta
 from dotenv import load_dotenv, set_key
+from bs4 import BeautifulSoup
+import subprocess
 
 from src.crawlers.GlassdoorCrawlerInputs import GlassdoorCrawlerInputs
 import src.schema.positions as schema
@@ -24,9 +26,63 @@ class GlassdoorCrawler(object):
             timeout=get_config('crawlers', 'glassdoor.timeout_time')
         )
 
-        return response.json()
         data = response.json()[0]['data']['jobListings']['jobListings']
         return pd.DataFrame(list(map(self.extract_fields, data)))
+    
+    def scrape_detail_data(self, url):
+        curl_command = f"curl '{url}'"
+        for key, value in self.get_detail_headers().items():
+            curl_command += f" -H '{key}:{value}'"
+
+        process = subprocess.Popen(curl_command, stdout=subprocess.PIPE, shell=True)
+        response, error = process.communicate()
+        if error:
+            return {}
+        
+        soup = BeautifulSoup(response, 'html.parser')
+        desc = soup.find('div', {'class': 'JobDetails_jobDescriptionWrapper___tqxc JobDetails_jobDetailsSectionContainer__o_x6Z JobDetails_paddingTopReset__IIrci'}).text
+        desc = re.sub(' +', ' ', desc.strip().replace('\n', ' '))
+
+        salary_range = soup.find('div', {'class': 'SalaryEstimate_salaryRange__brHFy'})
+        if salary_range:
+            salary_range = salary_range.text.strip()
+
+        company_info = {}
+        for info in soup.find_all('div', {'class': 'JobDetails_overviewItem__cAsry'}):
+            company_info[info.find('span').text.strip()] = info.find('div').text.strip()
+
+        ratings = {}
+        for info in soup.find_all('li', {'class': 'JobDetails_ratingItemContainer__BJoID'}):
+            ratings[info.find('span').text.strip()] = info.find('div').text.strip()
+        
+
+        idk = soup.find('ul', {'class': 'JobDetails_employerStatsDonuts__uWTLY'})
+        if idk:
+            for info in idk.find_all('li'):
+                ratings[info.find('span').text.strip()] = info.find('div').text.strip()
+
+        benefits = soup.find('div', {'class':'RatingHeadline_headline__scr7f'})
+        if benefits:
+            benefits = benefits.find('span')['aria-label']
+
+    
+    # todo check liting headers with this
+    def get_detail_headers(self):
+        return {
+            # todo check accpet all
+            'accept' : 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
+            'accept-language' : 'en-GB,en-US;q=0.9,en;q=0.8',
+            'cache-control' : 'max-age=0',
+            'sec-ch-ua' : '"Google Chrome";v="123", "Not:A-Brand";v="8", "Chromium";v="123"',
+            'sec-ch-ua-mobile' : '?0', 
+            'sec-ch-ua-platform' : '"macOS"',
+            'sec-fetch-dest' : 'document',
+            'sec-fetch-mode' : 'navigate',
+            'sec-fetch-site': 'same-origin',
+            'sec-fetch-user' : '?1',
+            'upgrade-insecure-requests' : '1',
+            'user-agent' : 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36'
+        }
 
     def get_headers(self):
         headers = {
