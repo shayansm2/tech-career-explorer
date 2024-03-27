@@ -7,16 +7,16 @@ from urllib.parse import urlparse
 from datetime import datetime, timedelta
 from dotenv import load_dotenv, set_key
 
-from src.crawlers.GlassdoorCrawlerInputs import GlassdorrCrawlerInputs
+from src.crawlers.GlassdoorCrawlerInputs import GlassdoorCrawlerInputs
 import src.schema.positions as schema
 from src.configs.configs import get_config
 
-class GlassdorrCrawler(object):
+class GlassdoorCrawler(object):
     def __init__(self) -> None:
         self.url = 'https://www.glassdoor.com/graph'
         self.base_url = 'https://www.glassdoor.com'
 
-    def scrape_listing_data(self, inputs: GlassdorrCrawlerInputs): 
+    def scrape_listing_data(self, inputs: GlassdoorCrawlerInputs): 
         response = requests.post(
             self.url,
             headers=self.get_headers(),
@@ -24,6 +24,7 @@ class GlassdorrCrawler(object):
             timeout=get_config('crawlers', 'glassdoor.timeout_time')
         )
 
+        return response.json()
         data = response.json()[0]['data']['jobListings']['jobListings']
         return pd.DataFrame(list(map(self.extract_fields, data)))
 
@@ -76,8 +77,8 @@ class GlassdorrCrawler(object):
             token = matches[0]
         return token
 
-    def get_listing_body(self, inputs: GlassdorrCrawlerInputs):
-        with open('./src/crawlers/glassdorrQuery.graphql', 'r') as file:
+    def get_listing_body(self, inputs: GlassdoorCrawlerInputs):
+        with open('./src/crawlers/glassdoorQuery.graphql', 'r') as file:
             query = file.read()
 
         result = [{
@@ -105,11 +106,12 @@ class GlassdorrCrawler(object):
     @staticmethod
     def extract_fields(data: dict) -> dict:
         data = data['jobview']['header']
+        parsed_url = urlparse(data['seoJobLink'])
         result = {
             schema.column_job_type: data['normalizedJobTitle'],
             schema.column_job_title: data['jobTitleText'],
             schema.column_company_name: data['employerNameFromSearch'],
-            schema.column_detail_page_uri: urlparse(data['seoJobLink']).path,
+            schema.column_detail_page_uri: parsed_url.path + "?" + parsed_url.query,
             schema.column_created_at: (datetime.now() - timedelta(days=data['ageInDays'])).strftime('%Y-%m-%d'),
             schema.column_rating: data['rating'],
             schema.column_pay_currency: data['payCurrency'],

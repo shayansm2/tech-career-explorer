@@ -1,4 +1,4 @@
-# tech-job-crawler
+# Tech Career Explorer
 
 tools to use:
 - postgres as data warehouse (production)

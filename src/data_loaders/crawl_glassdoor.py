@@ -5,14 +5,14 @@ if 'data_loader' not in globals():
     from mage_ai.data_preparation.decorators import data_loader
 if 'test' not in globals():
     from mage_ai.data_preparation.decorators import test
-from src.crawlers.GlassdoorCrawler import GlassdorrCrawler
-from src.crawlers.GlassdoorCrawlerInputs import GlassdorrCrawlerInputs
+from src.crawlers.GlassdoorCrawler import GlassdoorCrawler
+from src.crawlers.GlassdoorCrawlerInputs import GlassdoorCrawlerInputs
 from src.configs.configs import get_config
 
 
 @data_loader
 def load_data_from_api(*args, **kwargs):
-    inputs = GlassdorrCrawlerInputs(keyword="software engineer", location="netherlands")
+    inputs = GlassdoorCrawlerInputs(keyword="software engineer", location="netherlands")
     dfs = []
     max_retries = get_config('crawlers', 'glassdoor.max_retries')
     for page in range(get_config('crawlers', 'glassdoor.max_page')):
@@ -23,7 +23,7 @@ def load_data_from_api(*args, **kwargs):
             try:
                 need_retry = False
                 print(f"getting page {page+1} data")
-                df = GlassdorrCrawler().scrape_listing_data(inputs)
+                df = GlassdoorCrawler().scrape_listing_data(inputs)
                 print(f"found {len(df)} results in page {page+1}")
             except requests.Timeout:
                 print(f"time out page {page+1}")
