@@ -8,9 +8,11 @@ from datetime import datetime, timedelta
 from dotenv import load_dotenv, set_key
 from bs4 import BeautifulSoup
 import subprocess
+# from selenium import webdriver
 
 from src.crawlers.GlassdoorCrawlerInputs import GlassdoorCrawlerInputs
 import src.schema.positions as schema
+import src.schema.details as details_schema
 from src.configs.configs import get_config
 
 class GlassdoorCrawler(object):
@@ -29,17 +31,48 @@ class GlassdoorCrawler(object):
         data = response.json()[0]['data']['jobListings']['jobListings']
         return pd.DataFrame(list(map(self.extract_fields, data)))
     
-    def scrape_detail_data(self, url):
-        curl_command = f"curl '{url}'"
+    # def _get_detail_soup_selenium(self, url):
+    #     print('Initialize the WebDriver')
+    #     options = webdriver.ChromeOptions()
+    #     options.add_argument('headless')  # Run in headless mode
+
+    #     print('Add headers')
+    #     for key, value in self.get_detail_headers().items():
+    #         options.add_argument(f'{key}={value}')
+
+    #     driver = webdriver.Chrome(options=options)
+
+    #     print('set time out')
+    #     timeout=get_config('crawlers', 'glassdoor.timeout_time')
+    #     driver.set_script_timeout(timeout)
+
+    #     print('Load the page')
+    #     driver.get(url)
+
+    #     print('Get the page source and parse it with BeautifulSoup')
+    #     soup = BeautifulSoup(driver.page_source, 'html.parser')
+
+    #     print('Close the driver')
+    #     driver.quit()
+
+    #     return soup
+
+    def _get_detail_soup_pip(self, url):
+        print(url)
+        timeout=get_config('crawlers', 'glassdoor.timeout_time')
+        curl_command = f"curl -m {timeout} '{url}'"
         for key, value in self.get_detail_headers().items():
             curl_command += f" -H '{key}:{value}'"
 
+        print(curl_command)
         process = subprocess.Popen(curl_command, stdout=subprocess.PIPE, shell=True)
-        response, error = process.communicate()
-        if error:
-            return {}
+        response, _ = process.communicate()
         
-        soup = BeautifulSoup(response, 'html.parser')
+        return BeautifulSoup(response, 'html.parser')
+
+    def scrape_detail_data(self, url):
+        soup = self._get_detail_soup_pip(url)
+
         desc = soup.find('div', {'class': 'JobDetails_jobDescriptionWrapper___tqxc JobDetails_jobDetailsSectionContainer__o_x6Z JobDetails_paddingTopReset__IIrci'}).text
         desc = re.sub(' +', ' ', desc.strip().replace('\n', ' '))
 
@@ -56,14 +89,22 @@ class GlassdoorCrawler(object):
             ratings[info.find('span').text.strip()] = info.find('div').text.strip()
         
 
-        idk = soup.find('ul', {'class': 'JobDetails_employerStatsDonuts__uWTLY'})
-        if idk:
-            for info in idk.find_all('li'):
+        company_ratings = soup.find('ul', {'class': 'JobDetails_employerStatsDonuts__uWTLY'})
+        if company_ratings:
+            for info in company_ratings.find_all('li'):
                 ratings[info.find('span').text.strip()] = info.find('div').text.strip()
 
         benefits = soup.find('div', {'class':'RatingHeadline_headline__scr7f'})
         if benefits:
             benefits = benefits.find('span')['aria-label']
+            ratings['benefits'] = benefits
+
+        return {
+            details_schema.column_job_description: desc,
+            details_schema.column_company_info: company_info,
+            details_schema.column_company_ratings: ratings,
+            'url': url,
+        }
 
     
     # todo check liting headers with this
