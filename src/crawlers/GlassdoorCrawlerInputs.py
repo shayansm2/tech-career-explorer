@@ -1,4 +1,4 @@
-class GlassdorrCrawlerInputs(object):
+class GlassdoorCrawlerInputs(object):
     def __init__(self, keyword: str, location: str, page: int = 1) -> None:
         self.keyword = keyword
         location_data = self._get_location_data(location)
