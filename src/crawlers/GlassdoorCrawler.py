@@ -8,7 +8,8 @@ from datetime import datetime, timedelta
 from dotenv import load_dotenv, set_key
 from bs4 import BeautifulSoup
 import subprocess
-# from selenium import webdriver
+from time import sleep
+from selenium import webdriver
 
 from src.crawlers.GlassdoorCrawlerInputs import GlassdoorCrawlerInputs
 import src.schema.positions as schema
@@ -31,31 +32,31 @@ class GlassdoorCrawler(object):
         data = response.json()[0]['data']['jobListings']['jobListings']
         return pd.DataFrame(list(map(self.extract_fields, data)))
     
-    # def _get_detail_soup_selenium(self, url):
-    #     print('Initialize the WebDriver')
-    #     options = webdriver.ChromeOptions()
-    #     options.add_argument('headless')  # Run in headless mode
+    def _get_detail_soup_selenium(self, url):
+        print('Initialize the WebDriver')
+        options = webdriver.ChromeOptions()
+        options.add_argument('headless')  # Run in headless mode
 
-    #     print('Add headers')
-    #     for key, value in self.get_detail_headers().items():
-    #         options.add_argument(f'{key}={value}')
+        print('Add headers')
+        for key, value in self.get_detail_headers().items():
+            options.add_argument(f'{key}={value}')
 
-    #     driver = webdriver.Chrome(options=options)
+        driver = webdriver.Chrome(options=options)
 
-    #     print('set time out')
-    #     timeout=get_config('crawlers', 'glassdoor.timeout_time')
-    #     driver.set_script_timeout(timeout)
+        print('set time out')
+        timeout=get_config('crawlers', 'glassdoor.timeout_time')
+        driver.set_script_timeout(timeout)
 
-    #     print('Load the page')
-    #     driver.get(url)
+        print('Load the page')
+        driver.get(url)
 
-    #     print('Get the page source and parse it with BeautifulSoup')
-    #     soup = BeautifulSoup(driver.page_source, 'html.parser')
+        print('Get the page source and parse it with BeautifulSoup')
+        soup = BeautifulSoup(driver.page_source, 'html.parser')
 
-    #     print('Close the driver')
-    #     driver.quit()
+        print('Close the driver')
+        driver.quit()
 
-    #     return soup
+        return soup
 
     def _get_detail_soup_pip(self, url):
         print(url)
@@ -64,17 +65,23 @@ class GlassdoorCrawler(object):
         for key, value in self.get_detail_headers().items():
             curl_command += f" -H '{key}:{value}'"
 
-        print(curl_command)
+        sleep(1)
         process = subprocess.Popen(curl_command, stdout=subprocess.PIPE, shell=True)
         response, _ = process.communicate()
         
         return BeautifulSoup(response, 'html.parser')
 
     def scrape_detail_data(self, url):
-        soup = self._get_detail_soup_pip(url)
+        soup = self._get_detail_soup_selenium(url)
 
-        desc = soup.find('div', {'class': 'JobDetails_jobDescriptionWrapper___tqxc JobDetails_jobDetailsSectionContainer__o_x6Z JobDetails_paddingTopReset__IIrci'}).text
-        desc = re.sub(' +', ' ', desc.strip().replace('\n', ' '))
+        desc = soup.find('div', {'class': 'JobDetails_jobDescriptionWrapper___tqxc JobDetails_jobDetailsSectionContainer__o_x6Z JobDetails_paddingTopReset__IIrci'})
+        if desc is None:
+            with open('output.html', 'w') as sample:
+                sample.write(str(soup))
+            return {
+                'url': url,
+            }
+        desc = re.sub(' +', ' ', desc.text.strip().replace('\n', ' '))
 
         salary_range = soup.find('div', {'class': 'SalaryEstimate_salaryRange__brHFy'})
         if salary_range:

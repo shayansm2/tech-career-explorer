@@ -11,8 +11,6 @@ from src.configs.configs import get_config
 @data_loader
 def load_data_from_api(*args, **kwargs):
     df = args[0][['hash_id', 'detail_page_uri']]
-    max_retries = get_config('crawlers', 'linkedin.max_retries')
-    sleep_time = get_config('crawlers', 'linkedin.sleep_time')
     
     df.loc[:, 'detail_page_url'] = df['detail_page_uri'] \
         .apply(lambda x: 'https://www.linkedin.com/' + x)
@@ -22,6 +20,8 @@ def load_data_from_api(*args, **kwargs):
         .apply(pd.Series)
 
     retries = 0
+    max_retries = get_config('crawlers', 'linkedin.max_retries')
+    sleep_time = get_config('crawlers', 'linkedin.sleep_time')
     while len(columns[columns[schema.column_job_description].isnull()]) > 0 and retries <= max_retries:
         time.sleep(sleep_time)
         retries += 1

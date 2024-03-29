@@ -9,7 +9,7 @@ def execute():
     db = init()
     df = e_from_extract(db)
     df = t_from_transform(df)
-    # l_from_load(df, db)
+    l_from_load(df, db)
 
 
 def init():
@@ -25,19 +25,17 @@ def init():
 def e_from_extract(db):
     tbl_name = 'public.glassdoor_job_positions_stage'
     df = pd.read_sql(f'SELECT * FROM {tbl_name}', db)
-    db.execute(f"DROP TABLE IF EXISTS {tbl_name}")
     return df
 
 def t_from_transform(df):
     df = crawl_details(df)
     print(df)
     # perform_cleanup()
+    return df
 
 def crawl_details(df):
-    return load_data_from_api([df])
+    return load_data_from_api(df)
 
-def l_from_load(df, db):
+def l_from_load(df: pd.DataFrame, db):
+    df.to_csv('temp.csv')
     df.to_sql('glassdoor_job_position_details', db, if_exists='replace')
-
-if __name__ == "__main__":
-    execute()

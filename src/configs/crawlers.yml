@@ -5,4 +5,5 @@ linkedin:
 glassdoor:
   max_page: 20
   timeout_time: 10
-  max_retries: 3
+  max_retries: 10
+  sleep_time: 5
