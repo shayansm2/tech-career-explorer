@@ -1,0 +1,14 @@
+{
+    "manifest_version":3,
+    "version":"1.0",
+    "name":"Tech Career Explorer",
+    "content_scripts":[
+      {
+        "matches": [
+            "*://*.glassdoor.com/job-listing/*",
+            "*://*.linkedin.com/jobs/view/*"
+        ],
+        "js":["crawl.js"]
+      }
+    ]
+}
