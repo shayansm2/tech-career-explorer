@@ -57,7 +57,7 @@ libraries:
   - PyTorch
   - scikit-learn
   - Selenium
-database:
+database-technologies:
   - PostgreSQL
   - NoSQL
   - MongoDB
@@ -99,7 +99,7 @@ test:
 #   - AI
 #   - Data Science
 #   - Deep Learning
-role:
+job-roles:
   - front end
   - back end
   - frontend
