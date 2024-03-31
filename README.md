@@ -1,17 +1,30 @@
 # Tech Career Explorer
 
-tools to use:
-- postgres as data warehouse (production)
-- duckdb as data warehouse (development)
-- mage-ai as pipeline src
-- DBT for ELT
-- metabase for dashboard
+## Used Technologies
+- Workflow orchestration: Mage
+- Data Warehouse: PostgreSQL (for production DW), DuckDB (for develpment DW and backup)
+- Batch processing: DBT
+- Dashboard: Metabase
 
+## Project Structure
 ![alt text](statics/de_zoomcamp_project_schema.png)
 
-borad of this project and list of all todos:[link](https://github.com/users/shayansm2/projects/7/views/2)
-
+## How to start
 how to build:
 1. docker clone
 2. chmod +x build.sh
 3. ./build.sh
+4. dev mode
+5. add extension
+## Dashboard
+## Evaluation Criteria
+### Problem description
+### Data ingestion (batch processing)
+### Data warehouse
+### Transformations (dbt)
+### Dashboard
+### Reproducibility
+### Cloud deployment
+
+
+board of this project and list of all todos:[link](https://github.com/users/shayansm2/projects/7/views/2)
