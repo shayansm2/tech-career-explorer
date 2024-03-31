@@ -52,12 +52,12 @@ frameworks:
   - React Native
   - Node.js
   - Phoenix
-libraries:
-  - TensorFlow
-  - PyTorch
-  - scikit-learn
-  - Selenium
-database-technologies:
+# libraries:
+#   - TensorFlow
+#   - PyTorch
+#   - scikit-learn
+#   - Selenium
+databases:
   - PostgreSQL
   - NoSQL
   - MongoDB
@@ -84,12 +84,12 @@ infra:
   - SaaS
   - DevSecOps
   - Fastlane
-test:
-  - Unit Testing
-  - TDD
-  - PyTest
-  - TestRail
-  - Cucumber
+# test:
+#   - Unit Testing
+#   - TDD
+#   - PyTest
+#   - TestRail
+#   - Cucumber
 # soft-skills:
 #   - Leadership
 # ai-ml-de:
@@ -99,7 +99,7 @@ test:
 #   - AI
 #   - Data Science
 #   - Deep Learning
-job-roles:
+job_roles:
   - front end
   - back end
   - frontend

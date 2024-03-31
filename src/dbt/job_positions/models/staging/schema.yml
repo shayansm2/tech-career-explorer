@@ -8,3 +8,5 @@ sources:
       - name: linkedin_job_positions
       - name: relocate_job_positions
       - name: glassdoor_job_positions
+      - name: linkedin_job_position_details
+      - name: relocate_job_position_details
