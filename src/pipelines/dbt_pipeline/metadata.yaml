@@ -16,7 +16,7 @@ blocks:
   language: yaml
   name: deps
   retry_config: null
-  status: executed
+  status: failed
   timeout: null
   type: dbt
   upstream_blocks: []
@@ -44,6 +44,29 @@ blocks:
   type: dbt
   upstream_blocks: []
   uuid: dbt/job_positions/models/core/fact_positions
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    dbt_profile_target: dev
+    dbt_profiles_file_path: dbt/job_positions/profiles.yml
+    dbt_project_name: dbt/job_positions
+    file_path: dbt/job_positions/models/core/fact_metadata.sql
+    file_source:
+      path: dbt/job_positions/models/core/fact_metadata.sql
+      project_path: dbt/job_positions
+    limit: 1000
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: dbt/job_positions/models/core/fact_metadata
+  retry_config: null
+  status: executed
+  timeout: null
+  type: dbt
+  upstream_blocks: []
+  uuid: dbt/job_positions/models/core/fact_metadata
 cache_block_output_in_memory: false
 callbacks: []
 concurrency_config: {}
