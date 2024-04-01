@@ -10,3 +10,140 @@ sources:
       - name: glassdoor_job_positions
       - name: linkedin_job_position_details
       - name: relocate_job_position_details
+
+
+models:
+  - name: stg_glassdoor
+    description: data crawled from listing pages of glassdoor (https://www.glassdoor.com/Job/{location}-{position-name}-jobs-SRCH_IL.0,11_IN178_KO12,29.htm)
+    columns:
+      - name: job_id
+        tests:
+          - not_null
+      - name: position_id
+        tests:
+          - not_null
+          - unique
+      - name: job_title
+        tests:
+          - not_null
+      - name: company_name
+        tests:
+          - not_null
+      - name: city
+        tests:
+          - not_null
+      - name: country
+        tests:
+          - not_null
+      - name: page_url
+        tests:
+          - not_null
+          - unique
+      - name: source
+        tests:
+          - not_null
+  
+  
+  
+  - name: stg_linkedin
+    description: data crawled from listing pages of linkedin (https://www.linkedin.com/jobs/search/?keywords={position-name}&location={location})
+    columns:
+      - name: job_id
+        tests:
+          - not_null
+      - name: position_id
+        tests:
+          - not_null
+          - unique
+      - name: job_title
+        tests:
+          - not_null
+      - name: company_name
+        tests:
+          - not_null
+      - name: city
+        tests:
+          - not_null
+      - name: country
+        tests:
+          - not_null
+      - name: page_url
+        tests:
+          - not_null
+          - unique
+      - name: source
+        tests:
+          - not_null
+  
+  
+  
+  
+  - name: stg_relocate
+    description: data crawled from listing pages of relocate.me (https://relocate.me/search)
+    columns:
+      - name: job_id
+        tests:
+          - not_null
+      - name: position_id
+        tests:
+          - not_null
+          - unique
+      - name: job_title
+        tests:
+          - not_null
+      - name: company_name
+        tests:
+          - not_null
+      - name: city
+        tests:
+          - not_null
+      - name: country
+        tests:
+          - not_null
+      - name: page_url
+        tests:
+          - not_null
+          - unique
+      - name: source
+        tests:
+          - not_null
+  
+  
+  
+  
+  - name: stg_linkedin_details
+    description: data crawled from detail pages of linkedin (https://www.linkedin.com/jobs/view/{job-id}/)
+    columns:
+      - name: position_id
+        tests:
+          - not_null
+          - unique
+      - name: seniority_level
+        tests:
+          - not_null
+      - name: employment_type
+        tests:
+          - not_null
+      - name: job_function
+        tests:
+          - not_null
+      - name: industry
+        tests:
+          - not_null
+  
+  
+  
+  
+  - name: stg_relocate_details
+    description: data crawled from detail pages of relocate.me (https://relocate.me/{country}/{city}/{company}/{position-id})
+    columns:
+      - name: position_id
+        tests:
+          - not_null
+          - unique
+      - name: relocation_package_options
+        tests:
+          - not_null
+      - name: tags
+        tests:
+          - not_null

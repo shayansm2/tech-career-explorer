@@ -1,7 +1,7 @@
 with linkedin_metadata as (
     select stg_linkedtin_details.*, stg_linkedin.created_at
     from {{ ref('stg_linkedin') }} as stg_linkedin
-    full join {{ ref('stg_linkedtin_details') }} as stg_linkedtin_details
+    full join {{ ref('stg_linkedin_details') }} as stg_linkedtin_details
     on stg_linkedin.position_id = stg_linkedtin_details.position_id
 ), 
 
@@ -36,8 +36,8 @@ select position_id,
        libraries,
        databases,
        infra,
-       test,
-       job_roles,
+       test::text,
+       job_roles::text,
        relocation_package,
        remote_option,
        null                          as seniority_level,
@@ -59,8 +59,8 @@ select position_id,
        libraries,
        databases,
        infra,
-       test,
-       job_roles,
+       test::text,
+       job_roles::text,
        null as relocation_package,
        null as remote_option,
        seniority_level,
