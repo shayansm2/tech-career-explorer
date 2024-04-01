@@ -1,10 +1,10 @@
 # Tech Career Explorer
 
 ## Used Technologies
-- Workflow orchestration: Mage
-- Data Warehouse: PostgreSQL (for production DW), DuckDB (for develpment DW and backup)
-- Batch processing: DBT
-- Dashboard: Metabase
+- Workflow orchestration: **Mage**
+- Data Warehouse: **PostgreSQL** (for production DW), DuckDB (for develpment DW and backup)
+- Batch processing: **DBT**
+- Dashboard: **Metabase**
 
 ## Project Structure
 ![alt text](statics/de_zoomcamp_project_schema.png)
