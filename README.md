@@ -25,10 +25,30 @@ This project effectively addresses the problem of scattered job data, providing 
 ### Data ingestion (batch processing)
 
 ![alt text](statics/mage.png)
-### Data warehouse
+
+Firstly, the crawlers will scan the listing pages based on the input parameters (position name and job location). From these pages, the detail page URLs for each job position will be extracted. After a minor transformation and cleanup, the listing data will be exported to the data warehouse.
+
+Simultaneously, another crawler will retrieve data from all the detail URLs obtained in the previous step. Once the job descriptions are obtained, a predefined list of keywords (which can be configured [here](./src/configs/keywords.yml)) will be scanned across the entire job detail page. If any of these keywords exist, they will be stored in a separate table in the data warehouse for further analytics.
+
 ### Transformations (dbt)
 
 ![alt text](statics/dbt.png)
+
+### Data warehouse
+
+**PostgreSQL** serves as the data warehouse for this project. To ensure robustness, a daily job backs up data from the warehouse and stores it in DuckDB. To address scalability issues and optimize queries, we can employ partitioning, sharding, and clustering.
+
+We have two final tables connected to our dashboard: `fact_positions` and `fact_metadata`. When handling partitioning and clustering, we must consider the types of queries performed on these tables.
+
+`fact_metadata` Table:
+- This table primarily contains valuable data for analytics.
+- Queries are specific to its source, which includes data from LinkedIn, Glassdoor, and Relocate.
+- Therefore, partitioning this table based on the source column is taken.
+
+`fact_positions` Table:
+- Unlike `fact_metadata`, this table does not contain source-specific data.
+- For partitioning, using consistent hashing based on the position_id is being used.
+
 ### Dashboard
 
 ![alt text](statics/metabase1.png)
