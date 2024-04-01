@@ -16,9 +16,10 @@
 ![alt text](statics/mage.png)
 ### Data warehouse
 ### Transformations (dbt)
+![alt text](statics/dbt.png)
 ### Dashboard
-![alt text](statics/metabase1.jpeg)
-![alt text](statics/metabase2.jpeg)
+![alt text](statics/metabase1.png)
+![alt text](statics/metabase2.png)
 ### Reproducibility
 how to build:
 1. docker clone
