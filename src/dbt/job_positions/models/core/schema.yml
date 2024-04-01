@@ -1,0 +1,45 @@
+models:
+- name: fact_positions
+  description: list of all the positions crawled from different sources
+  columns:
+    - name: position_id
+      tests:
+          - not_null
+          - unique
+    - name: job_id
+      tests:
+          - not_null
+    - name: job_title
+      tests:
+          - not_null
+    - name: company_name
+      tests:
+          - not_null
+    - name: source
+      tests:
+          - not_null
+          - accepted_values:
+              values:
+                - linkedin
+                - relocate
+                - glassdoor 
+    - name: page_url
+      tests:
+          - not_null
+          - unique
+    - name: city
+      tests:
+          - not_null
+    - name: country
+      tests:
+          - not_null
+
+
+
+- name: fact_metadata
+  description: all the info and metada about the positions
+  columns:
+    - name: position_id
+      tests:
+          - not_null
+          - unique
