@@ -23,26 +23,44 @@ Finally, a dashboard is created using Metabase, providing a user-friendly interf
 This project effectively addresses the problem of scattered job data, providing a streamlined solution for job data extraction, transformation, loading, and analysis. It serves as a valuable tool for both job seekers and recruiters in the modern job market.
 
 ### Data ingestion (batch processing)
-[mage orchestrator](http://localhost:6789/)
 
 ![alt text](statics/mage.png)
 ### Data warehouse
 ### Transformations (dbt)
-[dbt docs](http://localhost:8080/)
 
 ![alt text](statics/dbt.png)
 ### Dashboard
-[metaase dahsboard](http://localhost:3000/dashboard/1-job-positions)
 
 ![alt text](statics/metabase1.png)
 ![alt text](statics/metabase2.png)
 ### Reproducibility
 how to build:
-1. docker clone
-2. chmod +x build.sh
-3. ./build.sh
-4. dev mode
-5. add extension
+1. clone this repo using the below command
+```bash
+git clone https://github.com/shayansm2/tech-career-explorer.git
+```
+2. build the project
+go to the project folder
+```bash
+cd tech-career-explorer
+```
+add execution access to build file
+```bash
+chmod +x build.sh
+```
+start building
+```bash
+./build.sh
+```
+have in mind that you should have a running docker in your system for building this project.
+3. now you can check the exported ports 
+
+|link|purpose|
+|---|---|
+|[mage ai panel](http://localhost:6789/)| for checking and running pipelines |
+|[dbt docs](http://localhost:8080/)| for checking dbt docs and lineage|
+|[metaase dahsboard](http://localhost:3000/dashboard/1-job-positions)|for checking the dashboards|
+|localhost:5432|connecting to the postgresql database|
 
 
 board of this project and list of all todos:[link](https://github.com/users/shayansm2/projects/7/views/2)
