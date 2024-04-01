@@ -9,21 +9,23 @@
 ## Project Structure
 ![alt text](statics/de_zoomcamp_project_schema.png)
 
-## How to start
+## Dashboard
+## Evaluation Criteria
+### Problem description
+### Data ingestion (batch processing)
+![alt text](statics/mage.png)
+### Data warehouse
+### Transformations (dbt)
+### Dashboard
+![alt text](statics/metabase1.jpeg)
+![alt text](statics/metabase2.jpeg)
+### Reproducibility
 how to build:
 1. docker clone
 2. chmod +x build.sh
 3. ./build.sh
 4. dev mode
 5. add extension
-## Dashboard
-## Evaluation Criteria
-### Problem description
-### Data ingestion (batch processing)
-### Data warehouse
-### Transformations (dbt)
-### Dashboard
-### Reproducibility
 ### Cloud deployment
 
 
