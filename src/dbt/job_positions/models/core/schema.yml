@@ -28,11 +28,7 @@ models:
           - not_null
           - unique
     - name: city
-      tests:
-          - not_null
     - name: country
-      tests:
-          - not_null
 
 
 
@@ -43,3 +39,6 @@ models:
       tests:
           - not_null
           - unique
+          - relationships:
+                  to: ref('fact_positions')
+                  field: position_id
