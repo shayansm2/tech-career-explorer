@@ -34,6 +34,8 @@ Simultaneously, another crawler will retrieve data from all the detail URLs obta
 
 ![alt text](statics/dbt.png)
 
+location of dbt codes: [link](./src/dbt/job_positions/)
+
 ### Data warehouse
 
 **PostgreSQL** serves as the data warehouse for this project. To ensure robustness, a daily job backs up data from the warehouse and stores it in DuckDB. To address scalability issues and optimize queries, we can employ partitioning, sharding, and clustering.
@@ -53,6 +55,7 @@ We have two final tables connected to our dashboard: `fact_positions` and `fact_
 
 ![alt text](statics/metabase1.png)
 ![alt text](statics/metabase2.png)
+Metabase is utilized to offer insights and visual charts within a dashboard. These charts depict the most commonly sought-after languages and technologies in job applications. Additionally, they highlight the freshness of the data and the distribution of various sources for each job position.
 ### Reproducibility
 how to build:
 1. clone this repo using the below command
@@ -81,6 +84,4 @@ have in mind that you should have a running docker in your system for building t
 |[dbt docs](http://localhost:8080/)| for checking dbt docs and lineage|
 |[metaase dahsboard](http://localhost:3000/dashboard/1-job-positions)|for checking the dashboards|
 |localhost:5432|connecting to the postgresql database|
-
-
-board of this project and list of all todos:[link](https://github.com/users/shayansm2/projects/7/views/2)
+|[project board](https://github.com/users/shayansm2/projects/7/views/2)|for checking todos and done actions|
