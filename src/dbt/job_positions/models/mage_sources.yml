@@ -1,0 +1,28 @@
+sources:
+- description: Dataframes Mage upstream blocks
+  loader: mage
+  name: mage_job_positions
+  schema: public
+  tables:
+  - description: Dataframe for block `linkedin_pipeline_sensor` of the `dbt_pipeline`
+      mage pipeline.
+    identifier: mage_dbt_pipeline_linkedin_pipeline_sensor
+    meta:
+      block_uuid: linkedin_pipeline_sensor
+      pipeline_uuid: dbt_pipeline
+    name: dbt_pipeline_linkedin_pipeline_sensor
+  - description: Dataframe for block `relocate_pipeline_sensor` of the `dbt_pipeline`
+      mage pipeline.
+    identifier: mage_dbt_pipeline_relocate_pipeline_sensor
+    meta:
+      block_uuid: relocate_pipeline_sensor
+      pipeline_uuid: dbt_pipeline
+    name: dbt_pipeline_relocate_pipeline_sensor
+  - description: Dataframe for block `glassdoor_pipeline_sensor` of the `dbt_pipeline`
+      mage pipeline.
+    identifier: mage_dbt_pipeline_glassdoor_pipeline_sensor
+    meta:
+      block_uuid: glassdoor_pipeline_sensor
+      pipeline_uuid: dbt_pipeline
+    name: dbt_pipeline_glassdoor_pipeline_sensor
+version: 2

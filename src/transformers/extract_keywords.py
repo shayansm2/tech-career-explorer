@@ -11,8 +11,6 @@ def transform(data, *args, **kwargs):
         data[field] = data[schema.column_job_description] \
             .apply(lambda x: get_flags(x, flags))
 
-    data.drop([schema.column_job_description, 'detail_page_url', 'detail_page_uri'], axis=1, inplace=True)
-
     return data
 
 

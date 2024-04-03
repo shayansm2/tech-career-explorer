@@ -72,20 +72,37 @@ blocks:
     file_source:
       path: transformers/extract_keywords.py
   downstream_blocks:
-  - load_relocate_details
+  - relocate_details_cleanup
   executor_config: null
   executor_type: local_python
   has_callback: false
   language: python
   name: extract_keywords
   retry_config: null
-  status: executed
+  status: updated
   timeout: null
   type: transformer
   upstream_blocks:
   - crawl_relocate_details
   uuid: extract_keywords
-- all_upstream_blocks_executed: true
+- all_upstream_blocks_executed: false
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - load_relocate_details
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: relocate_details_cleanup
+  retry_config: null
+  status: updated
+  timeout: null
+  type: transformer
+  upstream_blocks:
+  - extract_keywords
+  uuid: relocate_details_cleanup
+- all_upstream_blocks_executed: false
   color: null
   configuration: {}
   downstream_blocks: []
@@ -99,7 +116,7 @@ blocks:
   timeout: null
   type: data_exporter
   upstream_blocks:
-  - extract_keywords
+  - relocate_details_cleanup
   uuid: load_relocate_details
 cache_block_output_in_memory: false
 callbacks: []

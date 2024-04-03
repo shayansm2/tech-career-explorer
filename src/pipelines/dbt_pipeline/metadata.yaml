@@ -1,50 +1,128 @@
 blocks:
 - all_upstream_blocks_executed: true
   color: null
-  configuration:
-    dbt_profile_target: dev
-    dbt_profiles_file_path: dbt/job_positions/profiles.yml
-    dbt_project_name: dbt/job_positions
-    file_path: dbt/job_positions/models/core/fact_positions.sql
-    file_source:
-      path: dbt/job_positions/models/core/fact_positions.sql
-      project_path: dbt/job_positions
-    limit: 1000
-  downstream_blocks: []
+  configuration: {}
+  downstream_blocks:
+  - linkedin_pipeline_sensor
   executor_config: null
   executor_type: local_python
   has_callback: false
-  language: sql
-  name: dbt/job_positions/models/core/fact_positions
+  language: python
+  name: call_linkedin_pipeline
   retry_config: null
-  status: executed
+  status: updated
   timeout: null
-  type: dbt
+  type: custom
   upstream_blocks: []
-  uuid: dbt/job_positions/models/core/fact_positions
+  uuid: call_linkedin_pipeline
+- all_upstream_blocks_executed: false
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - dbt_run
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: linkedin_pipeline_sensor
+  retry_config: null
+  status: updated
+  timeout: null
+  type: sensor
+  upstream_blocks:
+  - call_linkedin_pipeline
+  uuid: linkedin_pipeline_sensor
 - all_upstream_blocks_executed: true
   color: null
+  configuration: {}
+  downstream_blocks:
+  - glassdoor_pipeline_sensor
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: call_glassdoor_pipeline
+  retry_config: null
+  status: updated
+  timeout: null
+  type: custom
+  upstream_blocks: []
+  uuid: call_glassdoor_pipeline
+- all_upstream_blocks_executed: false
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - dbt_run
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: glassdoor_pipeline_sensor
+  retry_config: null
+  status: updated
+  timeout: null
+  type: sensor
+  upstream_blocks:
+  - call_glassdoor_pipeline
+  uuid: glassdoor_pipeline_sensor
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - relocate_pipeline_sensor
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: call_relocate_pipeline
+  retry_config: null
+  status: updated
+  timeout: null
+  type: custom
+  upstream_blocks: []
+  uuid: call_relocate_pipeline
+- all_upstream_blocks_executed: false
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - dbt_run
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: relocate_pipeline_sensor
+  retry_config: null
+  status: updated
+  timeout: null
+  type: sensor
+  upstream_blocks:
+  - call_relocate_pipeline
+  uuid: relocate_pipeline_sensor
+- all_upstream_blocks_executed: false
+  color: null
   configuration:
+    dbt:
+      command: run
     dbt_profile_target: dev
     dbt_profiles_file_path: dbt/job_positions/profiles.yml
     dbt_project_name: dbt/job_positions
-    file_path: dbt/job_positions/models/core/fact_metadata.sql
     file_source:
-      path: dbt/job_positions/models/core/fact_metadata.sql
-      project_path: dbt/job_positions
-    limit: 1000
+      path: dbts/dbt_run.yaml
   downstream_blocks: []
   executor_config: null
   executor_type: local_python
   has_callback: false
-  language: sql
-  name: dbt/job_positions/models/core/fact_metadata
+  language: yaml
+  name: dbt_run
   retry_config: null
-  status: executed
+  status: not_executed
   timeout: null
   type: dbt
-  upstream_blocks: []
-  uuid: dbt/job_positions/models/core/fact_metadata
+  upstream_blocks:
+  - relocate_pipeline_sensor
+  - linkedin_pipeline_sensor
+  - glassdoor_pipeline_sensor
+  uuid: dbt_run
 cache_block_output_in_memory: false
 callbacks: []
 concurrency_config: {}

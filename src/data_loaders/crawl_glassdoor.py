@@ -12,7 +12,7 @@ from src.configs.configs import get_config
 
 @data_loader
 def load_data_from_api(*args, **kwargs):
-    inputs = GlassdoorCrawlerInputs(keyword="software engineer", location="netherlands")
+    inputs = GlassdoorCrawlerInputs(keyword=kwargs['keyword'], location=kwargs['location'])
     dfs = []
     max_retries = get_config('crawlers', 'glassdoor.max_retries')
     for page in range(get_config('crawlers', 'glassdoor.max_page')):

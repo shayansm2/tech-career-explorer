@@ -3,6 +3,22 @@ blocks:
   color: null
   configuration: {}
   downstream_blocks:
+  - crawl_linkedin
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: check_linkedin_inputs
+  retry_config: null
+  status: updated
+  timeout: null
+  type: sensor
+  upstream_blocks: []
+  uuid: check_linkedin_inputs
+- all_upstream_blocks_executed: false
+  color: null
+  configuration: {}
+  downstream_blocks:
   - transform_linkedin
   executor_config: null
   executor_type: local_python
@@ -10,12 +26,13 @@ blocks:
   language: python
   name: crawl_linkedin
   retry_config: null
-  status: executed
+  status: updated
   timeout: null
   type: data_loader
-  upstream_blocks: []
+  upstream_blocks:
+  - check_linkedin_inputs
   uuid: crawl_linkedin
-- all_upstream_blocks_executed: true
+- all_upstream_blocks_executed: false
   color: null
   configuration: {}
   downstream_blocks:
@@ -33,7 +50,7 @@ blocks:
   upstream_blocks:
   - crawl_linkedin
   uuid: transform_linkedin
-- all_upstream_blocks_executed: true
+- all_upstream_blocks_executed: false
   color: null
   configuration: {}
   downstream_blocks: []
@@ -49,7 +66,7 @@ blocks:
   upstream_blocks:
   - transform_linkedin
   uuid: load_linkedin
-- all_upstream_blocks_executed: true
+- all_upstream_blocks_executed: false
   color: null
   configuration: {}
   downstream_blocks:
@@ -66,11 +83,11 @@ blocks:
   upstream_blocks:
   - transform_linkedin
   uuid: crawl_linkedin_details
-- all_upstream_blocks_executed: true
+- all_upstream_blocks_executed: false
   color: null
   configuration: {}
   downstream_blocks:
-  - load_linkedin_details
+  - linkedin_details_cleanup
   executor_config: null
   executor_type: local_python
   has_callback: false
@@ -83,7 +100,7 @@ blocks:
   upstream_blocks:
   - crawl_linkedin_details
   uuid: extract_keywords
-- all_upstream_blocks_executed: true
+- all_upstream_blocks_executed: false
   color: null
   configuration: {}
   downstream_blocks: []
@@ -97,8 +114,25 @@ blocks:
   timeout: null
   type: data_exporter
   upstream_blocks:
-  - extract_keywords
+  - linkedin_details_cleanup
   uuid: load_linkedin_details
+- all_upstream_blocks_executed: false
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - load_linkedin_details
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: linkedin_details_cleanup
+  retry_config: null
+  status: updated
+  timeout: null
+  type: transformer
+  upstream_blocks:
+  - extract_keywords
+  uuid: linkedin_details_cleanup
 cache_block_output_in_memory: false
 callbacks: []
 concurrency_config: {}

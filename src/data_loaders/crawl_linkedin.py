@@ -17,8 +17,8 @@ def load_data_from_api(*args, **kwargs):
     Template for loading data from API
     """
     url_generator = LinkedinUrlGenerator() \
-        .set_geo_id(102890719) \
-        .set_keywords('Software Engineer')
+        .set_geo_id(kwargs['geo_id']) \
+        .set_keywords(kwargs['keyword'])
 
     offset = 0
     call_counter = 0

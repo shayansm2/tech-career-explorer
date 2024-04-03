@@ -3,6 +3,22 @@ blocks:
   color: null
   configuration: {}
   downstream_blocks:
+  - crawl_glassdoor
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: check_glassdoor_inputs
+  retry_config: null
+  status: updated
+  timeout: null
+  type: sensor
+  upstream_blocks: []
+  uuid: check_glassdoor_inputs
+- all_upstream_blocks_executed: false
+  color: null
+  configuration: {}
+  downstream_blocks:
   - transform_glassdoor
   executor_config: null
   executor_type: local_python
@@ -10,12 +26,13 @@ blocks:
   language: python
   name: crawl_glassdoor
   retry_config: null
-  status: executed
+  status: updated
   timeout: null
   type: data_loader
-  upstream_blocks: []
+  upstream_blocks:
+  - check_glassdoor_inputs
   uuid: crawl_glassdoor
-- all_upstream_blocks_executed: true
+- all_upstream_blocks_executed: false
   color: null
   configuration: {}
   downstream_blocks:
@@ -32,7 +49,7 @@ blocks:
   upstream_blocks:
   - crawl_glassdoor
   uuid: transform_glassdoor
-- all_upstream_blocks_executed: true
+- all_upstream_blocks_executed: false
   color: null
   configuration: {}
   downstream_blocks: []

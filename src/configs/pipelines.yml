@@ -1,0 +1,12 @@
+linkedin:
+  url: http://localhost:6789
+  uri: /api/pipeline_schedules/1/pipeline_runs/14997983d3b64b1bbbd80062959f97c7
+  uuid: linkedin_pipeline
+glassdoor:
+  url: http://localhost:6789
+  uri: /api/pipeline_schedules/3/pipeline_runs/da9edf6c9630425c99ca61c5554a8b1f
+  uuid: glassdoor_pipeline
+relocate:
+  url: http://localhost:6789
+  uri: /api/pipeline_schedules/2/pipeline_runs/17b924a4f61e4481b49bca403ab974f7
+  uuid: relocate_pipeline
