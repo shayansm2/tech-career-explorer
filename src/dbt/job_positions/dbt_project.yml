@@ -35,4 +35,5 @@ models:
     staging:
       materialized: view
     core:
-      materialized: table
+      materialized: incremental
+      unique_key: 'position_id'
