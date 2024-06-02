@@ -3,4 +3,4 @@ beautifulsoup4
 pandas
 pyyaml
 tls_client
-dotenv
+python-dotenv
