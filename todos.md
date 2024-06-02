@@ -1,0 +1,5 @@
+- [ ] push based pipelines for linkedin and glassdoor (from subscribed email)
+- [ ] client PDP crawler
+- [ ] daily update last status on google sheet
+- [ ] backup on duckdb
+- [tasks in github projects](https://github.com/users/shayansm2/projects/7/views/2?filterQuery=repo%3A%22shayansm2%2Ftech-career-explorer%22)
